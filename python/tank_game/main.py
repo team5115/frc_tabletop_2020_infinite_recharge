@@ -41,7 +41,8 @@ all_sprites_list.add(player1)
 clock = pygame.time.Clock()
 done = False
 
-d_angle=1
+d_angle=3
+d_speed=3
 
 while not done:
 
@@ -52,13 +53,13 @@ while not done:
         # Set the speed based on the key pressed
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                player1.changespeed(-3, 0)
+                player1.changespeed(-d_speed, 0)
             elif event.key == pygame.K_d:
-                player1.changespeed(3, 0)
+                player1.changespeed(d_speed, 0)
             elif event.key == pygame.K_w:
-                player1.changespeed(0, -3)
+                player1.changespeed(0, -d_speed)
             elif event.key == pygame.K_s:
-                player1.changespeed(0, 3)
+                player1.changespeed(0, d_speed)
             elif event.key == pygame.K_q:
                 player1.rotate(d_angle)
             elif event.key == pygame.K_e:
@@ -67,28 +68,18 @@ while not done:
         # Reset speed when key goes up
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
-                player1.changespeed(3, 0)
+                player1.changespeed(d_speed, 0)
             elif event.key == pygame.K_d:
-                player1.changespeed(-3, 0)
+                player1.changespeed(-d_speed, 0)
             elif event.key == pygame.K_w:
-                player1.changespeed(0, 3)
+                player1.changespeed(0, d_speed)
             elif event.key == pygame.K_s:
-                player1.changespeed(0, -3)
+                player1.changespeed(0, -d_speed)
             elif event.key == pygame.K_q:
                 player1.rotate(-d_angle)
             elif event.key == pygame.K_e:
                 player1.rotate(d_angle)
 
-        #     # Reset speed when key goes up
-        # elif event.type == pygame.KEYUP:
-        #     if event.key == pygame.K_LEFT:
-        #         player1.changespeed(3, 0)
-        #     elif event.key == pygame.K_RIGHT:
-        #         player1.changespeed(-3, 0)
-        #     elif event.key == pygame.K_UP:
-        #         player1.changespeed(0, 3)
-        #     elif event.key == pygame.K_DOWN:
-        #         player1.changespeed(0, -3)
 
     # This actually moves the player block based on the current speed
     player1.update()
