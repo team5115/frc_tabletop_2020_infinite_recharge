@@ -99,12 +99,12 @@ while not done:
 
 
     # This actually moves the player block based on the current speed
-    player1.update()
-    player2.update()
-    player3.update()
-    player4.update()
-    player5.update()
-    player6.update()
+    player1.update(all_sprites_list)
+    #player2.update()
+    #player3.update()
+    #player4.update()
+    #player5.update()
+    #player6.update()
 
     # -- Draw everything
     # Clear screen
@@ -120,4 +120,7 @@ while not done:
     # Pause
     clock.tick(60)
 
+    #if player1.is_collided_with(player2):
+    #    print "COLLISION"
+    
 pygame.quit()

@@ -1,5 +1,6 @@
 import pygame
 import player
+import copy
 from colors import *
 
 from pygame.math import Vector2
@@ -7,6 +8,60 @@ from pygame.math import Vector2
 
 # the rect element is used to blit the sprite
 
+class Frame(pygame.sprite.Sprite):
+    def __init__(self, x, y, angle=2):
+        self.position= Vector2(x,y)
+        self.heading= Vector2(0,0)
+        #self.velocity= Vector2(0,0)
+        self.rotation_rate=0
+        self.set_heading_angle(angle)
+        self.forward_speed=0
+        self.side_speed=0
+
+        self.dt=1
+        self.verbosity=0
+
+    def set_heading_angle(self,theta):
+        self.heading.from_polar([1,theta])
+                       
+    def get_heading_angle(self):
+        return self.heading.as_polar()[1]
+        
+    def changespeed(self, a_x, a_y):
+        if a_y !=0:
+            self.change_forward_speed(a_y)
+        elif a_x !=0:
+            self.change_side_speed(a_x)        
+
+    def change_forward_speed(self, dv):
+        self.forward_speed+=dv
+
+    def change_side_speed(self, dv):
+        self.side_speed+=dv
+
+    def rotate(self,delta_angle):
+        self.rotation_rate+=delta_angle
+  
+    def update_base(self):
+        
+   
+        theta=self.get_heading_angle()
+
+        velocity=Vector2(self.side_speed,self.forward_speed)
+        velocity.rotate_ip(-theta)
+        
+        self.position = self.position+self.dt*velocity
+
+        delta_angle=self.rotation_rate*self.dt
+        self.heading.rotate_ip(delta_angle)
+
+        if self.verbosity > 5:
+            print "center=",self.position,
+            print "delta_angle=",delta_angle,
+            print "heading_angle=",self.get_heading_angle()
+
+ 
+#####################################################################
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y,color=BLUE, angle=2):
@@ -32,57 +87,71 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = y
 
         
-        
-        self.position= Vector2(x,y)
-        self.heading= Vector2(0,0)
-        #self.velocity= Vector2(0,0)
-        self.rotation_rate=0
-        self.set_heading_angle(angle)
-        self.forward_speed=0
-        self.side_speed=0
-        
-    def set_heading_angle(self,theta):
-        self.heading.from_polar([1,theta])
-                       
-    def get_heading_angle(self):
-        return self.heading.as_polar()[1]
-        
+        self.frame=Frame(x,y,angle)
+        # self.position= Vector2(x,y)
+        # self.heading= Vector2(0,0)
+        # #self.velocity= Vector2(0,0)
+        # self.rotation_rate=0
+        # self.set_heading_angle(angle)
+        # self.forward_speed=0
+        # self.side_speed=0
+
+        self.dt=1
+
+        # self.last_position=0
+        # self.last_heading=0
+        # self.last_rotation_rate=0
+
     def changespeed(self, a_x, a_y):
         if a_y !=0:
-            self.change_forward_speed(a_y)
+            self.frame.change_forward_speed(a_y)
         elif a_x !=0:
-            self.change_side_speed(a_x)        
+            self.frame.change_side_speed(a_x)        
 
-    def change_forward_speed(self, dv):
-        self.forward_speed+=dv
-
-    def change_side_speed(self, dv):
-        self.side_speed+=dv
-
-    def update(self):
-        dt=1;
-
-        theta=self.get_heading_angle()
-
-        velocity=Vector2(self.side_speed,self.forward_speed)
-        velocity.rotate_ip(-theta)
-#        velocity.from_polar(self.forward_speed,theta)
-        
-        self.position = self.position+dt*velocity
-
-        delta_angle=self.rotation_rate*dt
-        self.heading.rotate_ip(delta_angle)
-
-        if self.verbosity > 5:
-            print "center=",self.position,
-            print "delta_angle=",delta_angle,
-            print "heading_angle=",self.get_heading_angle()
         
 
+    def update(self,all_sprites_list):
+
+        backup_frame=copy.deepcopy(self.frame)
+        self.update_base()
+        
+        for sprite in all_sprites_list:
+            if self != sprite:
+                if self.is_collided_with(sprite):
+                    self.frame=copy.deepcopy(backup_frame)
+
+        
+
+    def store_starting_position(self):
+        self.last_position=position
+        self.last_heading=heading
+        self.last_forward
+        
+    def update_base(self):
+
+   
+        # theta=self.get_heading_angle()
+
+        # velocity=Vector2(self.side_speed,self.forward_speed)
+        # velocity.rotate_ip(-theta)
+        
+        # self.frame.position = self.frame.position+self.dt*velocity
+
+        # delta_angle=self.rotation_rate*self.dt
+        # self.frame.heading.rotate_ip(delta_angle)
+
+        # if self.verbosity > 5:
+        #     print "center=",self.frame.position,
+        #     print "delta_angle=",delta_angle,
+        #     print "heading_angle=",self.get_heading_angle()
+
+
+        
+        self.frame.update_base()
         self.update_rect_heading_and_position()  
 
     def update_rect_heading_and_position(self):
-        angle= self.get_heading_angle()
+        angle= self.frame.get_heading_angle()
         rect_orig=self.image_original.get_rect()
         
         self.image = pygame.transform.rotate(self.image_original, angle)
@@ -90,10 +159,13 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=rect_orig.center)
 
         #now translate the whole thing
-        self.rect.move_ip(self.position.x,self.position.y)
+        self.rect.move_ip(self.frame.position.x,self.frame.position.y)
 
     def rotate(self,delta_angle):
-        self.rotation_rate+=delta_angle
+        #self.rotation_rate+=delta_angle
+        self.frame.rotate(delta_angle)
         
         
-        
+    def is_collided_with(self, sprite):
+        is_collided=self.rect.colliderect(sprite.rect)
+        return is_collided
