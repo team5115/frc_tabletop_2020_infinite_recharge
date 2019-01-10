@@ -38,9 +38,11 @@ class Player(pygame.sprite.Sprite):
         
         self.position= Vector2(x,y)
         self.heading= Vector2(0,0)
-        self.velocity= Vector2(0,0)
+        #self.velocity= Vector2(0,0)
         self.rotation_rate=0
         self.set_heading_angle(angle)
+        self.forward_speed=0
+        self.side_speed=0
         
     def set_heading_angle(self,theta):
         self.heading.from_polar([1,theta])
@@ -50,13 +52,32 @@ class Player(pygame.sprite.Sprite):
         return self.heading.as_polar()[1]
         
     def changespeed(self, a_x, a_y):
-         """ Change the speed of the player"""
-         self.velocity.x += a_x
-         self.velocity.y += a_y
+        if a_y !=0:
+            self.change_forward_speed(a_y)
+        elif a_x !=0:
+            self.change_side_speed(a_x)
+            
+            """ Change the speed of the player"""
+        # self.velocity.x += a_x
+        # self.velocity.y += a_y
+
+    def change_forward_speed(self, dv):
+        self.forward_speed+=dv
+
+    def change_side_speed(self, dv):
+        self.side_speed+=dv
+
 
     def update(self):
         dt=1;
-        self.position = self.position+dt*self.velocity
+
+        theta=self.get_heading_angle()
+
+        velocity=Vector2(self.side_speed,self.forward_speed)
+        velocity.rotate_ip(-theta)
+#        velocity.from_polar(self.forward_speed,theta)
+        
+        self.position = self.position+dt*velocity
 
         delta_angle=self.rotation_rate*dt
         self.heading.rotate_ip(delta_angle)
