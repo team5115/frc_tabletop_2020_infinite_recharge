@@ -22,9 +22,9 @@ class Player(pygame.sprite.Sprite):
         self.image.fill(color)
 
         # Make our top-left corner the passed-in location.
-        self.bounding_box = self.image.get_rect()
-        self.bounding_box.x = x
-        self.bounding_box.y = y
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
 
         # -- Attributes
         # Set speed vector
@@ -53,23 +53,24 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         dt=1;
         self.position = self.position+dt*self.velocity
-
-
-        self.bounding_box.x = self.position.x
-        self.bounding_box.y = self.position.y
+        # """ Find a new position for the player"""
+        # self.rect.x += self.vx
+        # self.rect.y += self.vy
+        self.rect.x = self.position.x
+        self.rect.y = self.position.y
         
         #if (self.delta_angle !=0):
         #    self.angle += self.delta_angle
         #    self.angle = self.angle % 360
-        #    self.rotate_bounding_box(self.angle)
+        #    self.rotate_rect(self.angle)
             
             
-    def rotate_bounding_box(self,angle):
+    def rotate_rect(self,angle):
         """spin the monkey image"""
-        center = self.bounding_box.center
+        center = self.rect.center
         rotate = pygame.transform.rotate
         self.image = rotate(self.image, angle)
-        self.bounding_box = self.image.get_rect(center=center)
+        self.rect = self.image.get_rect(center=center)
 
     def rotate(self,delta_angle):
         self.delta_angle=delta_angle
