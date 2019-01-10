@@ -29,12 +29,12 @@ def redraw_screen():
     screen.fill(WHITE)
     pygame.draw.polygon(screen, GREY, ((0,0), (field_width, 0), (field_width,field_height), (0,field_height), (0, 0)))
 #    pygame.draw.line(screen, GREEN, (0,0), (field_width, 0), (field_width,field_height), (0,field_height), (0,0), 10)
-    pygame.draw.line(screen, GREEN, (60, 60), (120, 60), 4)
-    pygame.draw.line(screen, BLUE, (120, 60), (60, 120))
-    pygame.draw.line(screen, BLUE, (60, 120), (120, 120), 4)
-    pygame.draw.circle(screen, BLUE, (300, 50), 20, 0)
-    pygame.draw.ellipse(screen, RED, (300, 250, 40, 80), 1)
-    pygame.draw.rect(screen, RED, (200, 150, 100, 50))
+#    pygame.draw.line(screen, GREEN, (60, 60), (120, 60), 4)
+#    pygame.draw.line(screen, BLUE, (120, 60), (60, 120))
+#    pygame.draw.line(screen, BLUE, (60, 120), (120, 120), 4)
+#    pygame.draw.circle(screen, BLUE, (300, 50), 20, 0)
+#    pygame.draw.ellipse(screen, RED, (300, 250, 40, 80), 1)
+#    pygame.draw.rect(screen, RED, (200, 150, 100, 50))
 
 
 
