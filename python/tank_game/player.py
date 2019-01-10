@@ -20,7 +20,8 @@ class Frame(pygame.sprite.Sprite):
 
         self.dt=1
         self.verbosity=0
-
+        self.is_macanum=False
+        
     def set_heading_angle(self,theta):
         self.heading.from_polar([1,theta])
                        
@@ -37,7 +38,8 @@ class Frame(pygame.sprite.Sprite):
         self.forward_speed+=dv
 
     def change_side_speed(self, dv):
-        self.side_speed+=dv
+        if self.is_macanum:
+            self.side_speed+=dv
 
     def rotate(self,delta_angle):
         self.rotation_rate+=delta_angle
