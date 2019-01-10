@@ -1,0 +1,1 @@
+sdltest.o: sdltest.cpp
