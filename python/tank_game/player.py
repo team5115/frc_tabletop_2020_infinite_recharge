@@ -16,9 +16,12 @@ class Player(pygame.sprite.Sprite):
         # Call the parent's constructor
         super(Player,self).__init__()
 
+        self.verbosity=0
+        
         # Set height, width
         width=15
         length=38
+      #  width=length
         
 #        self.image = pygame.Surface([38, 15])
         self.image = pygame.Surface((width,length), pygame.SRCALPHA)
@@ -31,18 +34,12 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-        # -- Attributes
-        # Set speed vector
-        self.vx = 0
-        self.vy = 0
-
+        self.rect_original=self.image_original.get_rect()
+        
         self.position= Vector2(x,y)
         self.heading= Vector2(0,0)
         self.velocity= Vector2(0,0)
-#        self.accel= Vector2(0,0)
-
-#        self.heading.from_polar([1,angle])
-
+        self.rotation_rate=0
         self.set_heading_angle(angle)
         
     def set_heading_angle(self,theta):
@@ -60,37 +57,40 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         dt=1;
         self.position = self.position+dt*self.velocity
-        self.update_rect_position()
-        self.update_rect_heading()  
-        
-    def update_rect_position(self):
-        self.rect.x = self.position.x
-        self.rect.y = self.position.y
-        
-        #if (self.delta_angle !=0):
-        #    self.angle += self.delta_angle
-        #    self.angle = self.angle % 360
-        # self.rotate_rect(self.get_heading_angle())
 
-    def update_rect_heading(self):
-        center = self.rect.center
-        rotate = pygame.transform.rotate
+        delta_angle=self.rotation_rate*dt
+        self.heading.rotate_ip(delta_angle)
+
+        if self.verbosity > 5:
+            print "center=",self.position,
+            print "delta_angle=",delta_angle,
+            print "heading_angle=",self.get_heading_angle()
+        
+
+        self.update_rect_heading_and_position()  
+#        self.update_rect_position()
+        
+#    def update_rect_position(self):
+#        self.rect.x = self.position.x
+#        self.rect.y = self.position.y
+
+    def update_rect_heading_and_position(self):
+        #center_old = self.rect.center
+        #rotate = pygame.transform.rotate
         angle= self.get_heading_angle()
-        print "Angle=",angle
+        rect_orig=self.image_original.get_rect()
         
         self.image = pygame.transform.rotate(self.image_original, angle)
-        self.rect = self.image.get_rect(center=center)        
-            
-    #def rotate_rect(self,angle):
-    #     """spin the monkey image"""
-    #     center = self.rect.center
+        ### get the center from the original image
+        self.rect = self.image.get_rect(center=rect_orig.center)
 
-    #     self.image = pygame.transform.rotate(self.image, angle)
-    #     self.rect = self.image.get_rect(center=center)
+        #now translate the whole thing
+        self.rect.move_ip(self.position.x,self.position.y)
+
+  
 
     def rotate(self,delta_angle):
-        self.delta_angle=delta_angle
-        self.heading.rotate(delta_angle)
-        print "Delta Angle", delta_angle
-        print self.heading.as_polar()
+        self.rotation_rate+=delta_angle
+        
+        
         
