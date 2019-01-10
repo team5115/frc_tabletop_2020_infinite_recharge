@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
     """ The class is the player-controlled sprite. """
 
     # -- Methods
-    def __init__(self, x, y,color=BLUE, angle=45):
+    def __init__(self, x, y,color=BLUE, angle=2):
         """Constructor function"""
         # Call the parent's constructor
         super(Player,self).__init__()
@@ -24,6 +24,8 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((width,length), pygame.SRCALPHA)
         self.image.fill(color)
 
+        self.image_original=self.image
+        
         # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -45,7 +47,7 @@ class Player(pygame.sprite.Sprite):
         
     def set_heading_angle(self,theta):
         self.heading.from_polar([1,theta])
-        self.rotate_rect(self.get_heading_angle())
+        #self.rotate_rect(self.get_heading_angle())
                
     def get_heading_angle(self):
         return self.heading.as_polar()[1]
@@ -58,9 +60,10 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         dt=1;
         self.position = self.position+dt*self.velocity
-        self.update_rect()  
+        self.update_rect_position()
+        self.update_rect_heading()  
         
-    def update_rect(self):
+    def update_rect_position(self):
         self.rect.x = self.position.x
         self.rect.y = self.position.y
         
@@ -69,16 +72,25 @@ class Player(pygame.sprite.Sprite):
         #    self.angle = self.angle % 360
         # self.rotate_rect(self.get_heading_angle())
 
-            
-            
-    def rotate_rect(self,angle):
-        """spin the monkey image"""
+    def update_rect_heading(self):
         center = self.rect.center
         rotate = pygame.transform.rotate
-        self.image = rotate(self.image, angle)
-        self.rect = self.image.get_rect(center=center)
+        angle= self.get_heading_angle()
+        print "Angle=",angle
+        
+        self.image = pygame.transform.rotate(self.image_original, angle)
+        self.rect = self.image.get_rect(center=center)        
+            
+    #def rotate_rect(self,angle):
+    #     """spin the monkey image"""
+    #     center = self.rect.center
+
+    #     self.image = pygame.transform.rotate(self.image, angle)
+    #     self.rect = self.image.get_rect(center=center)
 
     def rotate(self,delta_angle):
         self.delta_angle=delta_angle
-
+        self.heading.rotate(delta_angle)
+        print "Delta Angle", delta_angle
+        print self.heading.as_polar()
         
