@@ -2,6 +2,7 @@ import pygame
 import player
 from colors import *
 
+from pygame.math import Vector2
 
 class Player(pygame.sprite.Sprite):
     """ The class is the player-controlled sprite. """
@@ -27,29 +28,41 @@ class Player(pygame.sprite.Sprite):
 
         # -- Attributes
         # Set speed vector
-        self.change_x = 0
-        self.change_y = 0
+        self.vx = 0
+        self.vy = 0
 
         #self.pointing_x=0
         #self.pointing_y=0
-        self.delta_angle=0
-        self.angle=0
+        #self.delta_angle=0
+        #self.angle=0
 
-    def changespeed(self, x, y):
-        """ Change the speed of the player"""
-        self.change_x += x
-        self.change_y += y
+        self.position= Vector2(x,y)
+ #       self.heading= Vector2(0,0)
+        self.velocity= Vector2(0,0)
+#        self.accel= Vector2(0,0)
+
+    def changespeed(self, a_x, a_y):
+         """ Change the speed of the player"""
+         self.velocity.x += a_x
+         self.velocity.y += a_y
+
+    # def change_speed(self, acceleration):
+    #     self.vel=self.vel+acceleration
 
 
     def update(self):
-        """ Find a new position for the player"""
-        self.rect.x += self.change_x
-        self.rect.y += self.change_y
-
-        if (self.delta_angle !=0):
-            self.angle += self.delta_angle
-            self.angle = self.angle % 360
-            self.rotate_rect(self.angle)
+        dt=1;
+        self.position = self.position+dt*self.velocity
+        # """ Find a new position for the player"""
+        # self.rect.x += self.vx
+        # self.rect.y += self.vy
+        self.rect.x = self.position.x
+        self.rect.y = self.position.y
+        
+        #if (self.delta_angle !=0):
+        #    self.angle += self.delta_angle
+        #    self.angle = self.angle % 360
+        #    self.rotate_rect(self.angle)
             
             
     def rotate_rect(self,angle):
