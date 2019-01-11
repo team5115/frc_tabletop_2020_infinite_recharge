@@ -2,6 +2,7 @@ import pygame
 import player
 import copy
 from colors import *
+import loader_utils
 
 from pygame.math import Vector2
 
@@ -20,7 +21,8 @@ class Frame(pygame.sprite.Sprite):
 
         self.dt=1
         self.verbosity=0
-        self.is_macanum=False
+        #self.is_macanum=False
+        self.is_macanum=True
         
     def set_heading_angle(self,theta):
         self.heading.from_polar([1,theta])
@@ -76,9 +78,13 @@ class Player(pygame.sprite.Sprite):
 
         width=15
         length=38
-        self.image = pygame.Surface((width,length), pygame.SRCALPHA)
-        self.image.fill(color)
 
+        if True:
+            self.image = pygame.Surface((width,length), pygame.SRCALPHA)
+            self.image.fill(color)
+        else:
+            picture = pygame.image.load('./data/playerShip1_orange.png')
+            self.image=pygame.transform.scale(picture, (width,length))
 
         self.image_original=self.image
         self.rect_original=self.image_original.get_rect()
