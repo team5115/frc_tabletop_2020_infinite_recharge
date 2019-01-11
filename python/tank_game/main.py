@@ -23,6 +23,7 @@ from wall import Wall
 from hab_platform_level_1 import Hab_platform_level_1
 from hab_platform_level_2 import Hab_platform_level_2
 from hab_platform_level_3 import Hab_platform_level_3
+from depot import Depot
 
 from colors import *
 from units import *
@@ -105,6 +106,17 @@ class Game:
         y=mid_y
         blue_hab_platform_level_1=Hab_platform_level_1(x,y,HAB1,flip_x=False)
 
+        x=min_x
+        y=blue_hab_platform_level_2b.rect.bottom
+        blue_depot_a=Depot(x,y,ORANGE,flip_x=False,flip_y=False)
+
+        x=min_x
+        y=blue_hab_platform_level_2a.rect.top
+        blue_depot_b=Depot(x,y,ORANGE,flip_x=False,flip_y=True)
+
+        
+        
+
         x=max_x
         y=mid_y        
         red_hab_platform_level_3=Hab_platform_level_3(x,y,HAB3,flip_x=True)
@@ -121,7 +133,18 @@ class Game:
         y=mid_y        
         red_hab_platform_level_1=Hab_platform_level_1(x,y,HAB1,flip_x=True)
 
+        x=max_x
+        y=red_hab_platform_level_2b.rect.bottom
+        red_depot_a=Depot(x,y,ORANGE,flip_x=True,flip_y=False)
 
+        x=max_x
+        y=red_hab_platform_level_2a.rect.top
+        red_depot_b=Depot(x,y,ORANGE,flip_x=True,flip_y=True)
+
+
+        ############################################
+        #  Robot starts
+        #
 
         blue_x=blue_hab_platform_level_1.rect.centerx
         blue_y1=blue_hab_platform_level_1.rect.centery
@@ -172,10 +195,16 @@ class Game:
         self.all_sprites_list.add(blue_hab_platform_level_2a)
         self.all_sprites_list.add(blue_hab_platform_level_2b)
         self.all_sprites_list.add(blue_hab_platform_level_3)
+        self.all_sprites_list.add(blue_depot_a)
+        self.all_sprites_list.add(blue_depot_b)
+
+        
         self.all_sprites_list.add(red_hab_platform_level_1)
         self.all_sprites_list.add(red_hab_platform_level_2a)
         self.all_sprites_list.add(red_hab_platform_level_2b)
         self.all_sprites_list.add(red_hab_platform_level_3)
+        self.all_sprites_list.add(red_depot_a)
+        self.all_sprites_list.add(red_depot_b)
 
         self.all_sprites_list.add(self.robot1)
         self.all_sprites_list.add(self.robot2)
@@ -202,10 +231,15 @@ class Game:
         self.solid_sprites_list.add(blue_hab_platform_level_2a)
         self.solid_sprites_list.add(blue_hab_platform_level_2b)
         self.solid_sprites_list.add(blue_hab_platform_level_3)
+        self.solid_sprites_list.add(blue_depot_a)
+        self.solid_sprites_list.add(blue_depot_b)
+
  #       self.solid_sprites_list.add(red_hab_platform_level_1)
         self.solid_sprites_list.add(red_hab_platform_level_2a)
         self.solid_sprites_list.add(red_hab_platform_level_2b)
         self.solid_sprites_list.add(red_hab_platform_level_3)
+        self.solid_sprites_list.add(red_depot_a)
+        self.solid_sprites_list.add(red_depot_b)
 
 
         self.solid_sprites_list.add(self.robot1)
