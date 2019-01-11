@@ -34,7 +34,7 @@ class Cargo_ship(pygame.sprite.Sprite):
         
         # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.centerx = x
+        self.rect.centery = y
 
         

@@ -9,6 +9,7 @@ import pygame
 from player import Player
 from cargo_ship import Cargo_ship
 from rocket import Rocket
+from hab_zone import Hab_zone
 
 from colors import *
 
@@ -53,8 +54,16 @@ def redraw_screen():
 field_width=230*3
 field_height=133*3
 
-cargo_ship_xo=field_width/2
-cargo_ship_yo=field_height/2
+max_x=field_width;
+max_y=field_height;
+
+min_x=0
+min_y=0
+mid_x=max_x/2.0
+mid_y=max_y/2.0
+
+cargo_ship_xo=mid_x
+cargo_ship_yo=mid_y
   
 cargo_ship_1=Cargo_ship(cargo_ship_xo,cargo_ship_yo,GREEN)
 
@@ -75,6 +84,8 @@ rocket_2=Rocket(rocket_2_xo,rocket_2_yo,BLUE,180)
 rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
 rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,180)
 
+hab_zone_1=Hab_zone(min_x,mid_y,BLUE,0)
+hab_zone_2=Hab_zone(max_x,mid_y,BLUE,180)
 
 hab_zone_width=95
 red_x=hab_zone_width/2
@@ -100,6 +111,8 @@ all_sprites_list.add(rocket_1)
 all_sprites_list.add(rocket_2)
 all_sprites_list.add(rocket_3)
 all_sprites_list.add(rocket_4)
+all_sprites_list.add(hab_zone_1)
+all_sprites_list.add(hab_zone_2)
 all_sprites_list.add(player1)
 all_sprites_list.add(player2)
 all_sprites_list.add(player3)
