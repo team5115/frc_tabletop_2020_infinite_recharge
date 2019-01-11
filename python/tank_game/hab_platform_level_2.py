@@ -12,7 +12,7 @@ from pygame.math import Vector2
 #####################################################################
 class Hab_platform_level_2(pygame.sprite.Sprite):
 
-    def __init__(self, x, y,color=YELLOW,angle=0):
+    def __init__(self, x, y,color=YELLOW,flip_x=False, flip_y=False):
 
         # Call the parent's constructor
         super(Hab_platform_level_2,self).__init__()
@@ -39,5 +39,8 @@ class Hab_platform_level_2(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-        if (angle==180):
+        if (flip_y==True):
             self.rect.y=y-height
+
+        if (flip_x==True):
+            self.rect.x=x-width

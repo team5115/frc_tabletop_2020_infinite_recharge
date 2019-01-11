@@ -11,7 +11,7 @@ from pygame.math import Vector2
 #####################################################################
 class Cargo_ship(pygame.sprite.Sprite):
 
-    def __init__(self, x, y,color=GREEN):
+    def __init__(self, x, y,color=GREEN,angle=180):
 
         # Call the parent's constructor
         super(Cargo_ship,self).__init__()
@@ -20,13 +20,17 @@ class Cargo_ship(pygame.sprite.Sprite):
 
         width=40.5+21.75+21.75*2
         height=21.75*3
-   
+
+        width=int(width)
+        height=int(height)
+
         if True:
+            picture = pygame.image.load('./data/cargo.png')
+            picture= pygame.transform.rotate(picture,angle)
+            self.image=pygame.transform.scale(picture, (width,height))
+        else:        
             self.image = pygame.Surface((width,height), pygame.SRCALPHA)
             self.image.fill(color)
-        else:
-            picture = pygame.image.load('./data/cargo.png')
-            self.image=pygame.transform.scale(picture,(width,height))
 
 
         self.image_original=self.image

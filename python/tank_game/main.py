@@ -3,11 +3,12 @@
 #
 
 """
-Sample Python/Pygame Programs
-Simpson College Computer Science
-http://programarcadegames.com/
-http://simpson.edu/computer-science/
+FRC robot sim
+Team 5115 - Knight Riders
+
+Author: Joe Adams
 """
+
 import pygame, sys
 from pygame.locals import *
 from colors import *
@@ -74,20 +75,48 @@ class Game:
         rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
         rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,180)
 
-        blue_hab_platform_level_3=Hab_platform_level_3(min_x,mid_y,HAB3,0)
+        x=min_x
+        y=mid_y        
+        blue_hab_platform_level_3=Hab_platform_level_3(x,y,HAB3,flip_x=False)
+
+        x=min_x
         y=blue_hab_platform_level_3.rect.bottom
-        blue_hab_platform_level_2b=Hab_platform_level_2(min_x,y,HAB2,0)
+        blue_hab_platform_level_2b=Hab_platform_level_2(x,y,HAB2,flip_x=False,flip_y=False)
+
+        x=min_x
         y=blue_hab_platform_level_3.rect.top
-        blue_hab_platform_level_2a=Hab_platform_level_2(min_x,y,HAB2,180)
+        blue_hab_platform_level_2a=Hab_platform_level_2(x,y,HAB2,flip_x=False,flip_y=True)
+
         x=blue_hab_platform_level_3.rect.right
-        blue_hab_platform_level_1=Hab_platform_level_1(x,mid_y,HAB1,0)
+        y=mid_y
+        blue_hab_platform_level_1=Hab_platform_level_1(x,y,HAB1,flip_x=False)
 
-        red_hab_platform_level_1=Hab_platform_level_1(max_x-3*ft_,mid_y,YELLOW,0)
-        red_hab_platform_level_2a=Hab_platform_level_2(max_x,mid_y,DARKGREEN,0)
-        red_hab_platform_level_2b=Hab_platform_level_2(max_x,mid_y,DARKGREEN,0)
-        red_hab_platform_level_3=Hab_platform_level_3(max_x,mid_y,RED,0)
+        x=max_x
+        y=mid_y        
+        red_hab_platform_level_3=Hab_platform_level_3(x,y,HAB3,flip_x=True)
 
-        #hab_zone_2=Hab_zone(max_x,mid_y,BLUE,180)
+        x=max_x
+        y=red_hab_platform_level_3.rect.bottom
+        red_hab_platform_level_2b=Hab_platform_level_2(x,y,HAB2,flip_x=True,flip_y=False)
+
+        x=max_x
+        y=red_hab_platform_level_3.rect.top
+        red_hab_platform_level_2a=Hab_platform_level_2(x,y,HAB2,flip_x=True,flip_y=True)
+        
+        x=red_hab_platform_level_3.rect.left
+        y=mid_y        
+        red_hab_platform_level_1=Hab_platform_level_1(x,y,HAB1,flip_x=True)
+
+
+        # red_hab_platform_level_3=Hab_platform_level_3(max_x,mid_y,HAB3,0)
+        # y=red_hab_platform_level_3.rect.bottom
+        # red_hab_platform_level_2b=Hab_platform_level_2(min_x,y,HAB2,0)
+        # y=red_hab_platform_level_3.rect.top
+        # red_hab_platform_level_2a=Hab_platform_level_2(min_x,y,HAB2,180)
+        # x=red_hab_platform_level_3.rect.right
+        # red_hab_platform_level_1=Hab_platform_level_1(x,mid_y,HAB1,0)
+
+        
 
         hab_zone_width=95
         red_x=hab_zone_width/2
