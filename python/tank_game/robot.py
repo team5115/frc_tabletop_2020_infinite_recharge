@@ -41,7 +41,9 @@ class Robot(pygame.sprite.Sprite):
         self.chassis=RobotChassis(x,y,angle,is_mecanum)
 
         self.dt=1
-
+        self.d_angle=3
+        self.d_speed=3
+        
         # self.last_position=0
         # self.last_heading=0
         # self.last_rotation_rate=0
@@ -115,38 +117,53 @@ class Robot(pygame.sprite.Sprite):
         return is_collided
 
     def process_event(self, event):
-        if ~keymap.has_key(event):
+        #key=event.dict["key"]
+        key=event.key
+
+        value=""
+        #print "key=", type(key), "value=",key
+        #print "pygame.K_w=", type(pygame.K_w), "value=",pygame.K_w
+
+        
+        if (self.keymap.has_key(key)):
+            value=self.keymap[key]
+        else:
+           # print "selfkeymap doesn't have the key"
+            #for keys,values in self.keymap.items():
+            #    print(keys)
+            #    print(values)
             return
         
-        if event.type == pygame.QUIT:
-            return
+
+
+       # print "value=", value
         
         # Set the speed based on the key pressed
-        elif event.type == pygame.KEYDOWN:            
+        if event.type == pygame.KEYDOWN:            
             if value == "strafe_left":
-                self.changespeed(-d_speed, 0)
+                self.changespeed(-self.d_speed, 0)
             elif value == "strafe_right":
-                self.changespeed(d_speed, 0)
+                self.changespeed(self.d_speed, 0)
             elif value == "forward":
-                self.changespeed(0, -d_speed)
+                self.changespeed(0, -self.d_speed)
             elif value == "backward":
-                self.changespeed(0, d_speed)
+                self.changespeed(0, self.d_speed)
             elif value == "rotate_left":
-                self.rotate(d_angle)
+                self.rotate(self.d_angle)
             elif value == "rotate_right":
-                self.rotate(-d_angle)
+                self.rotate(-self.d_angle)
 
                 # Reset speed when key goes up
         elif event.type == pygame.KEYUP:
             if value == "strafe_left":
-                self.changespeed(d_speed, 0)
+                self.changespeed(self.d_speed, 0)
             elif value == "strafe_right":
-                self.changespeed(-d_speed, 0)
+                self.changespeed(-self.d_speed, 0)
             elif value == "forward":
-                self.changespeed(0, d_speed)
+                self.changespeed(0, self.d_speed)
             elif value == "backward":
-                self.changespeed(0, -d_speed)
+                self.changespeed(0, -self.d_speed)
             elif value == "rotate_left":
-                self.rotate(-d_angle)
+                self.rotate(-self.d_angle)
             elif value == "rotate_right":
-                self.rotate(d_angle)
+                self.rotate(self.d_angle)

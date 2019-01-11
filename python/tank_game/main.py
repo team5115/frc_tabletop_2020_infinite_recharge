@@ -277,9 +277,19 @@ class Game:
         self.solid_sprites_list.add(self.robot4)
         self.solid_sprites_list.add(self.robot5)
         self.solid_sprites_list.add(self.robot6)
+
+        self.robots_list = pygame.sprite.Group()
+        self.robots_list.add(self.robot1)
+        self.robots_list.add(self.robot2)
+        self.robots_list.add(self.robot3)
+        self.robots_list.add(self.robot4)
+        self.robots_list.add(self.robot5)
+        self.robots_list.add(self.robot6)
+
         
         self.clock = pygame.time.Clock()
-        
+
+
 
     def redraw_screen(self):
         field_width=230*3
@@ -328,39 +338,48 @@ class Game:
                     surface.blit(old_surface_saved, (0,0))
                     del old_surface_saved     
 
-                # Set the speed based on the key pressed
+                # # Set the speed based on the key pressed
+                # elif event.type == pygame.KEYDOWN:
+                #     if event.key == pygame.K_a:
+                #         self.robot1.changespeed(-d_speed, 0)
+                #     elif event.key == pygame.K_d:
+                #         self.robot1.changespeed(d_speed, 0)
+                #     elif event.key == pygame.K_w:
+                #         self.robot1.changespeed(0, -d_speed)
+                #     elif event.key == pygame.K_s:
+                #         self.robot1.changespeed(0, d_speed)
+                #     elif event.key == pygame.K_q:
+                #         self.robot1.rotate(d_angle)
+                #     elif event.key == pygame.K_e:
+                #         self.robot1.rotate(-d_angle)
+
+                # # Reset speed when key goes up
+                # elif event.type == pygame.KEYUP:
+                #     if event.key == pygame.K_a:
+                #         self.robot1.changespeed(d_speed, 0)
+                #     elif event.key == pygame.K_d:
+                #         self.robot1.changespeed(-d_speed, 0)
+                #     elif event.key == pygame.K_w:
+                #         self.robot1.changespeed(0, d_speed)
+                #     elif event.key == pygame.K_s:
+                #         self.robot1.changespeed(0, -d_speed)
+                #     elif event.key == pygame.K_q:
+                #         self.robot1.rotate(-d_angle)
+                #     elif event.key == pygame.K_e:
+                #         self.robot1.rotate(d_angle)
+
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_a:
-                        self.robot1.changespeed(-d_speed, 0)
-                    elif event.key == pygame.K_d:
-                        self.robot1.changespeed(d_speed, 0)
-                    elif event.key == pygame.K_w:
-                        self.robot1.changespeed(0, -d_speed)
-                    elif event.key == pygame.K_s:
-                        self.robot1.changespeed(0, d_speed)
-                    elif event.key == pygame.K_q:
-                        self.robot1.rotate(d_angle)
-                    elif event.key == pygame.K_e:
-                        self.robot1.rotate(-d_angle)
+                    for robot in self.robots_list:
+                        robot.process_event(event)
 
-                # Reset speed when key goes up
                 elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_a:
-                        self.robot1.changespeed(d_speed, 0)
-                    elif event.key == pygame.K_d:
-                        self.robot1.changespeed(-d_speed, 0)
-                    elif event.key == pygame.K_w:
-                        self.robot1.changespeed(0, d_speed)
-                    elif event.key == pygame.K_s:
-                        self.robot1.changespeed(0, -d_speed)
-                    elif event.key == pygame.K_q:
-                        self.robot1.rotate(-d_angle)
-                    elif event.key == pygame.K_e:
-                        self.robot1.rotate(d_angle)
+                    for robot in self.robots_list:
+                        robot.process_event(event)
 
-
+            for robot in self.robots_list:
+                robot.update(self.solid_sprites_list)
             # This actually moves the robot block based on the current speed
-            self.robot1.update(self.solid_sprites_list)
+            #self.robot1.update(self.solid_sprites_list)
             #self.robot2.update()
             #self.robot3.update()
             #self.robot4.update()
