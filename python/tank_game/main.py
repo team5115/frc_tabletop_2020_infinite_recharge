@@ -1,5 +1,6 @@
 #!/usr/bin/python
 #
+#
 
 """
 Sample Python/Pygame Programs
