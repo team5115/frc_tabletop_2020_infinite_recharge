@@ -1,3 +1,6 @@
+#!/usr/bin/python
+#
+
 """
 Sample Python/Pygame Programs
 Simpson College Computer Science
@@ -9,9 +12,14 @@ import pygame
 from player import Player
 from cargo_ship import Cargo_ship
 from rocket import Rocket
-from hab_zone import Hab_zone
+
+
+from hab_platform_level_1 import Hab_platform_level_1
+from hab_platform_level_2 import Hab_platform_level_2
+from hab_platform_level_3 import Hab_platform_level_3
 
 from colors import *
+from units import *
 
 
         
@@ -84,8 +92,20 @@ rocket_2=Rocket(rocket_2_xo,rocket_2_yo,BLUE,180)
 rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
 rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,180)
 
-hab_zone_1=Hab_zone(min_x,mid_y,BLUE,0)
-hab_zone_2=Hab_zone(max_x,mid_y,BLUE,180)
+blue_hab_platform_level_3=Hab_platform_level_3(min_x,mid_y,BLUE,0)
+y=blue_hab_platform_level_3.rect.bottom
+blue_hab_platform_level_2b=Hab_platform_level_2(min_x,y,DARKGREEN,0)
+y=blue_hab_platform_level_3.rect.top
+blue_hab_platform_level_2a=Hab_platform_level_2(min_x,y,RED,180)
+x=blue_hab_platform_level_3.rect.right
+blue_hab_platform_level_1=Hab_platform_level_1(x,mid_y,YELLOW,0)
+
+red_hab_platform_level_1=Hab_platform_level_1(max_x-3*ft_,mid_y,YELLOW,0)
+red_hab_platform_level_2a=Hab_platform_level_2(max_x,mid_y,DARKGREEN,0)
+red_hab_platform_level_2b=Hab_platform_level_2(max_x,mid_y,DARKGREEN,0)
+red_hab_platform_level_3=Hab_platform_level_3(max_x,mid_y,RED,0)
+
+#hab_zone_2=Hab_zone(max_x,mid_y,BLUE,180)
 
 hab_zone_width=95
 red_x=hab_zone_width/2
@@ -111,8 +131,15 @@ all_sprites_list.add(rocket_1)
 all_sprites_list.add(rocket_2)
 all_sprites_list.add(rocket_3)
 all_sprites_list.add(rocket_4)
-all_sprites_list.add(hab_zone_1)
-all_sprites_list.add(hab_zone_2)
+all_sprites_list.add(blue_hab_platform_level_1)
+all_sprites_list.add(blue_hab_platform_level_2a)
+all_sprites_list.add(blue_hab_platform_level_2b)
+all_sprites_list.add(blue_hab_platform_level_3)
+all_sprites_list.add(red_hab_platform_level_1)
+all_sprites_list.add(red_hab_platform_level_2a)
+all_sprites_list.add(red_hab_platform_level_2b)
+all_sprites_list.add(red_hab_platform_level_3)
+
 all_sprites_list.add(player1)
 all_sprites_list.add(player2)
 all_sprites_list.add(player3)
