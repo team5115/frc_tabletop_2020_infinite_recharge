@@ -13,7 +13,7 @@ from pygame.locals import *
 from colors import *
 
 import pygame
-from player import Player
+from robot import Robot
 from cargo_ship import Cargo_ship
 from rocket import Rocket
 
@@ -98,14 +98,14 @@ class Game:
         p3_y=p1_y*3
 
 
-        # Create the player object
-        self.player1 = Player(red_x, p1_y,RED1)
-        self.player2 = Player(red_x, p2_y,RED2)
-        self.player3 = Player(red_x, p3_y,RED3)
+        # Create the robot object
+        self.robot1 = Robot(red_x, p1_y,RED1)
+        self.robot2 = Robot(red_x, p2_y,RED2)
+        self.robot3 = Robot(red_x, p3_y,RED3)
 
-        self.player4 = Player(blue_x, p1_y, BLUE1)
-        self.player5 = Player(blue_x, p2_y,BLUE2)
-        self.player6 = Player(blue_x, p3_y,BLUE3)
+        self.robot4 = Robot(blue_x, p1_y, BLUE1)
+        self.robot5 = Robot(blue_x, p2_y,BLUE2)
+        self.robot6 = Robot(blue_x, p3_y,BLUE3)
 
         self.all_sprites_list = pygame.sprite.Group()
         self.all_sprites_list.add(cargo_ship_1)
@@ -122,12 +122,12 @@ class Game:
         self.all_sprites_list.add(red_hab_platform_level_2b)
         self.all_sprites_list.add(red_hab_platform_level_3)
 
-        self.all_sprites_list.add(self.player1)
-        self.all_sprites_list.add(self.player2)
-        self.all_sprites_list.add(self.player3)
-        self.all_sprites_list.add(self.player4)
-        self.all_sprites_list.add(self.player5)
-        self.all_sprites_list.add(self.player6)
+        self.all_sprites_list.add(self.robot1)
+        self.all_sprites_list.add(self.robot2)
+        self.all_sprites_list.add(self.robot3)
+        self.all_sprites_list.add(self.robot4)
+        self.all_sprites_list.add(self.robot5)
+        self.all_sprites_list.add(self.robot6)
 
         self.clock = pygame.time.Clock()
         
@@ -182,41 +182,41 @@ class Game:
                 # Set the speed based on the key pressed
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_a:
-                        self.player1.changespeed(-d_speed, 0)
+                        self.robot1.changespeed(-d_speed, 0)
                     elif event.key == pygame.K_d:
-                        self.player1.changespeed(d_speed, 0)
+                        self.robot1.changespeed(d_speed, 0)
                     elif event.key == pygame.K_w:
-                        self.player1.changespeed(0, -d_speed)
+                        self.robot1.changespeed(0, -d_speed)
                     elif event.key == pygame.K_s:
-                        self.player1.changespeed(0, d_speed)
+                        self.robot1.changespeed(0, d_speed)
                     elif event.key == pygame.K_q:
-                        self.player1.rotate(d_angle)
+                        self.robot1.rotate(d_angle)
                     elif event.key == pygame.K_e:
-                        self.player1.rotate(-d_angle)
+                        self.robot1.rotate(-d_angle)
 
                 # Reset speed when key goes up
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_a:
-                        self.player1.changespeed(d_speed, 0)
+                        self.robot1.changespeed(d_speed, 0)
                     elif event.key == pygame.K_d:
-                        self.player1.changespeed(-d_speed, 0)
+                        self.robot1.changespeed(-d_speed, 0)
                     elif event.key == pygame.K_w:
-                        self.player1.changespeed(0, d_speed)
+                        self.robot1.changespeed(0, d_speed)
                     elif event.key == pygame.K_s:
-                        self.player1.changespeed(0, -d_speed)
+                        self.robot1.changespeed(0, -d_speed)
                     elif event.key == pygame.K_q:
-                        self.player1.rotate(-d_angle)
+                        self.robot1.rotate(-d_angle)
                     elif event.key == pygame.K_e:
-                        self.player1.rotate(d_angle)
+                        self.robot1.rotate(d_angle)
 
 
-            # This actually moves the player block based on the current speed
-            self.player1.update(self.all_sprites_list)
-            #self.player2.update()
-            #self.player3.update()
-            #self.player4.update()
-            #self.player5.update()
-            #self.player6.update()
+            # This actually moves the robot block based on the current speed
+            self.robot1.update(self.all_sprites_list)
+            #self.robot2.update()
+            #self.robot3.update()
+            #self.robot4.update()
+            #self.robot5.update()
+            #self.robot6.update()
 
             # -- Draw everything
             # Clear self.screen
@@ -232,7 +232,7 @@ class Game:
             # Pause
             self.clock.tick(60)
 
-            #if self.player1.is_collided_with(self.player2):
+            #if self.robot1.is_collided_with(self.robot2):
             #    print "COLLISION"
 
         pygame.quit()
