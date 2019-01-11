@@ -164,7 +164,36 @@ class Game:
         # p1_y=field_height/4
         # p2_y=p1_y*2
         # p3_y=p1_y*3
+        
+        key_map_1={ pygame.K_w: "forward",
+                    pygame.K_s: "backward",
+                    pygame.K_a: "strafe_left", 
+                    pygame.K_d: "strafe_right",
+                    pygame.K_e: "rotate_right",
+                    pygame.K_q:  "rotate_left" }
 
+        key_map_2={ pygame.K_UP: "forward",
+                    pygame.K_DOWN: "backward",
+                    pygame.K_LEFT: "strafe_left", 
+                    pygame.K_RIGHT: "strafe_right",
+                    pygame.K_PAGEUP: "rotate_right",
+                    pygame.K_PAGEDOWN:  "rotate_left" }
+
+        key_map_3={ pygame.K_t: "forward",
+                    pygame.K_g: "backward",
+                    pygame.K_f: "strafe_left", 
+                    pygame.K_h: "strafe_right",
+                    pygame.K_r: "rotate_right",
+                    pygame.K_y:  "rotate_left" }
+
+        key_map_4={ pygame.K_i: "forward",
+                    pygame.K_k: "backward",
+                    pygame.K_j: "strafe_left", 
+                    pygame.K_l: "strafe_right",
+                    pygame.K_u: "rotate_right",
+                    pygame.K_o:  "rotate_left" }
+
+        
 
         # Create the robot object
         self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=0,is_mecanum=False)
@@ -362,3 +391,4 @@ if __name__ == '__main__':
     the_game=Game()
     the_game.run();
     
+
