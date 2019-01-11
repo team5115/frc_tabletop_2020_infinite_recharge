@@ -8,6 +8,9 @@ Simpson College Computer Science
 http://programarcadegames.com/
 http://simpson.edu/computer-science/
 """
+import pygame, sys
+from pygame.locals import *
+from colors import *
 
 import pygame
 from player import Player
@@ -28,7 +31,8 @@ from units import *
 pygame.init()
 
 # Create an 800x600 sized screen
-screen = pygame.display.set_mode([800, 600])
+screen_size=[800,500]
+screen = pygame.display.set_mode(screen_size,pygame.RESIZABLE)
 
 # Set the title of the window
 pygame.display.set_caption('Test')
@@ -93,13 +97,13 @@ rocket_2=Rocket(rocket_2_xo,rocket_2_yo,BLUE,180)
 rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
 rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,180)
 
-blue_hab_platform_level_3=Hab_platform_level_3(min_x,mid_y,BLUE,0)
+blue_hab_platform_level_3=Hab_platform_level_3(min_x,mid_y,HAB3,0)
 y=blue_hab_platform_level_3.rect.bottom
-blue_hab_platform_level_2b=Hab_platform_level_2(min_x,y,DARKGREEN,0)
+blue_hab_platform_level_2b=Hab_platform_level_2(min_x,y,HAB2,0)
 y=blue_hab_platform_level_3.rect.top
-blue_hab_platform_level_2a=Hab_platform_level_2(min_x,y,RED,180)
+blue_hab_platform_level_2a=Hab_platform_level_2(min_x,y,HAB2,180)
 x=blue_hab_platform_level_3.rect.right
-blue_hab_platform_level_1=Hab_platform_level_1(x,mid_y,YELLOW,0)
+blue_hab_platform_level_1=Hab_platform_level_1(x,mid_y,HAB1,0)
 
 red_hab_platform_level_1=Hab_platform_level_1(max_x-3*ft_,mid_y,YELLOW,0)
 red_hab_platform_level_2a=Hab_platform_level_2(max_x,mid_y,DARKGREEN,0)
@@ -160,6 +164,13 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
+            
+        elif event.type == VIDEORESIZE:
+            # There's some code to add back window content here.
+            surface = pygame.display.set_mode((event.w, event.h),
+                                              pygame.RESIZABLE)
+#            CreateWindow(event.w,event.h)
+            
         # Set the speed based on the key pressed
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
