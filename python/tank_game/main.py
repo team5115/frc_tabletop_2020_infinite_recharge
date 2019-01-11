@@ -7,6 +7,10 @@ FRC robot sim
 Team 5115 - Knight Riders
 
 Author: Joe Adams
+version 1
+
+19/01/11 - multiple keymaps now working
+
 """
 
 import pygame, sys
@@ -152,18 +156,12 @@ class Game:
         blue_y2=blue_y1+blue_hab_platform_level_1.rect.height/2
         blue_y3=blue_y1-blue_hab_platform_level_1.rect.height/2
 
-        red_x=red_hab_platform_level_1.rect.centerx
+        red_x=red_hab_platform_level_1.rect.left
         red_y1=red_hab_platform_level_1.rect.centery
         red_y2=red_y1+red_hab_platform_level_1.rect.height/2
         red_y3=red_y1-red_hab_platform_level_1.rect.height/2
         
-        # hab_zone_width=95
-        # red_x=hab_zone_width/2
-        # blue_x=field_width-(hab_zone_width/2)
-
-        # p1_y=field_height/4
-        # p2_y=p1_y*2
-        # p3_y=p1_y*3
+       
         
         key_map_1={ pygame.K_w: "forward",
                     pygame.K_s: "backward",
@@ -172,38 +170,39 @@ class Game:
                     pygame.K_e: "rotate_right",
                     pygame.K_q:  "rotate_left" }
 
-        key_map_2={ pygame.K_UP: "forward",
-                    pygame.K_DOWN: "backward",
-                    pygame.K_LEFT: "strafe_left", 
-                    pygame.K_RIGHT: "strafe_right",
-                    pygame.K_PAGEUP: "rotate_right",
-                    pygame.K_PAGEDOWN:  "rotate_left" }
 
-        key_map_3={ pygame.K_t: "forward",
+        key_map_2={ pygame.K_t: "forward",
                     pygame.K_g: "backward",
                     pygame.K_f: "strafe_left", 
                     pygame.K_h: "strafe_right",
                     pygame.K_r: "rotate_right",
                     pygame.K_y:  "rotate_left" }
 
-        key_map_4={ pygame.K_i: "forward",
+        key_map_3={ pygame.K_i: "forward",
                     pygame.K_k: "backward",
                     pygame.K_j: "strafe_left", 
                     pygame.K_l: "strafe_right",
                     pygame.K_u: "rotate_right",
                     pygame.K_o:  "rotate_left" }
 
-        
+
+        key_map_4={ pygame.K_UP: "forward",
+                    pygame.K_DOWN: "backward",
+                    pygame.K_LEFT: "strafe_left", 
+                    pygame.K_RIGHT: "strafe_right",
+                    pygame.K_PAGEUP: "rotate_right",
+                    pygame.K_PAGEDOWN:  "rotate_left" }
+
 
         # Create the robot object
-        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=0,keymap=key_map_1, is_mecanum=False)
-        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=45,keymap=key_map_2,is_mecanum=False)
-        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=90,keymap=key_map_3,is_mecanum=False)
+        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=key_map_1, is_mecanum=False)
+        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=key_map_2,is_mecanum=False)
+        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=270,keymap=key_map_3,is_mecanum=False)
 
 
-        self.robot4 = Robot(red_x, red_y1,RED1,angle=270,keymap=key_map_4,is_mecanum=False)
-        self.robot5 = Robot(red_x, red_y2,RED2,angle=270,keymap={},is_mecanum=False)
-        self.robot6 = Robot(red_x, red_y3,RED3,angle=270,keymap={},is_mecanum=False)
+        self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=key_map_4,is_mecanum=False)
+        self.robot5 = Robot(red_x, red_y2,RED2,angle=90,keymap={},is_mecanum=False)
+        self.robot6 = Robot(red_x, red_y3,RED3,angle=90,keymap={},is_mecanum=False)
 
 
 #        self.all_sprites_list = pygame.sprite.Group()
