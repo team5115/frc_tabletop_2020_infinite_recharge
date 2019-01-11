@@ -17,6 +17,7 @@ import pygame
 from robot import Robot
 from cargo_ship import Cargo_ship
 from rocket import Rocket
+from wall import Wall
 
 
 from hab_platform_level_1 import Hab_platform_level_1
@@ -45,6 +46,7 @@ class Game:
         field_width=230*3
         field_height=133*3
 
+        
         max_x=field_width;
         max_y=field_height;
 
@@ -53,6 +55,18 @@ class Game:
         mid_x=max_x/2.0
         mid_y=max_y/2.0
 
+
+        wall_thickness=1
+        
+        wall_1=Wall(min_x,min_y,width=field_width,height=wall_thickness,color=BLACK)
+        wall_2=Wall(min_x,max_y,width=field_width,height=wall_thickness,color=BLACK)
+
+        wall_3=Wall(min_x,min_y,width=wall_thickness,height=field_height,color=BLACK)
+        wall_4=Wall(max_x,min_y,width=wall_thickness,height=field_height,color=BLACK)
+
+
+
+        
         cargo_ship_xo=mid_x
         cargo_ship_yo=mid_y
 
@@ -108,35 +122,47 @@ class Game:
         red_hab_platform_level_1=Hab_platform_level_1(x,y,HAB1,flip_x=True)
 
 
-        # red_hab_platform_level_3=Hab_platform_level_3(max_x,mid_y,HAB3,0)
-        # y=red_hab_platform_level_3.rect.bottom
-        # red_hab_platform_level_2b=Hab_platform_level_2(min_x,y,HAB2,0)
-        # y=red_hab_platform_level_3.rect.top
-        # red_hab_platform_level_2a=Hab_platform_level_2(min_x,y,HAB2,180)
-        # x=red_hab_platform_level_3.rect.right
-        # red_hab_platform_level_1=Hab_platform_level_1(x,mid_y,HAB1,0)
 
+        blue_x=blue_hab_platform_level_1.rect.centerx
+        blue_y1=blue_hab_platform_level_1.rect.centery
+        blue_y1=blue_hab_platform_level_1.rect.centery
+        blue_y2=blue_y1+blue_hab_platform_level_1.rect.height/2
+        blue_y3=blue_y1-blue_hab_platform_level_1.rect.height/2
+
+        red_x=red_hab_platform_level_1.rect.centerx
+        red_y1=red_hab_platform_level_1.rect.centery
+        red_y2=red_y1+red_hab_platform_level_1.rect.height/2
+        red_y3=red_y1-red_hab_platform_level_1.rect.height/2
         
+        # hab_zone_width=95
+        # red_x=hab_zone_width/2
+        # blue_x=field_width-(hab_zone_width/2)
 
-        hab_zone_width=95
-        red_x=hab_zone_width/2
-        blue_x=field_width-(hab_zone_width/2)
-
-        p1_y=field_height/4
-        p2_y=p1_y*2
-        p3_y=p1_y*3
+        # p1_y=field_height/4
+        # p2_y=p1_y*2
+        # p3_y=p1_y*3
 
 
         # Create the robot object
-        self.robot1 = Robot(red_x, p1_y,RED1)
-        self.robot2 = Robot(red_x, p2_y,RED2)
-        self.robot3 = Robot(red_x, p3_y,RED3)
+        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=0)
+        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=45)
+        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=90)
 
-        self.robot4 = Robot(blue_x, p1_y, BLUE1)
-        self.robot5 = Robot(blue_x, p2_y,BLUE2)
-        self.robot6 = Robot(blue_x, p3_y,BLUE3)
 
-        self.all_sprites_list = pygame.sprite.Group()
+        self.robot4 = Robot(red_x, red_y1,RED1,angle=270)
+        self.robot5 = Robot(red_x, red_y2,RED2,angle=270)
+        self.robot6 = Robot(red_x, red_y3,RED3,angle=270)
+
+
+#        self.all_sprites_list = pygame.sprite.Group()
+        self.all_sprites_list = pygame.sprite.OrderedUpdates()
+
+     
+        self.all_sprites_list.add(wall_1)
+        self.all_sprites_list.add(wall_2)
+        self.all_sprites_list.add(wall_3)
+        self.all_sprites_list.add(wall_4)
+        
         self.all_sprites_list.add(cargo_ship_1)
         self.all_sprites_list.add(rocket_1)
         self.all_sprites_list.add(rocket_2)
@@ -158,6 +184,37 @@ class Game:
         self.all_sprites_list.add(self.robot5)
         self.all_sprites_list.add(self.robot6)
 
+
+        
+        self.solid_sprites_list = pygame.sprite.Group()
+    
+        self.solid_sprites_list.add(wall_1)
+        self.solid_sprites_list.add(wall_2)
+        self.solid_sprites_list.add(wall_3)
+        self.solid_sprites_list.add(wall_4)
+
+        self.solid_sprites_list.add(cargo_ship_1)
+        self.solid_sprites_list.add(rocket_1)
+        self.solid_sprites_list.add(rocket_2)
+        self.solid_sprites_list.add(rocket_3)
+        self.solid_sprites_list.add(rocket_4)
+#        self.solid_sprites_list.add(blue_hab_platform_level_1)
+        self.solid_sprites_list.add(blue_hab_platform_level_2a)
+        self.solid_sprites_list.add(blue_hab_platform_level_2b)
+        self.solid_sprites_list.add(blue_hab_platform_level_3)
+ #       self.solid_sprites_list.add(red_hab_platform_level_1)
+        self.solid_sprites_list.add(red_hab_platform_level_2a)
+        self.solid_sprites_list.add(red_hab_platform_level_2b)
+        self.solid_sprites_list.add(red_hab_platform_level_3)
+
+
+        self.solid_sprites_list.add(self.robot1)
+        self.solid_sprites_list.add(self.robot2)
+        self.solid_sprites_list.add(self.robot3)
+        self.solid_sprites_list.add(self.robot4)
+        self.solid_sprites_list.add(self.robot5)
+        self.solid_sprites_list.add(self.robot6)
+        
         self.clock = pygame.time.Clock()
         
 
@@ -240,7 +297,7 @@ class Game:
 
 
             # This actually moves the robot block based on the current speed
-            self.robot1.update(self.all_sprites_list)
+            self.robot1.update(self.solid_sprites_list)
             #self.robot2.update()
             #self.robot3.update()
             #self.robot4.update()

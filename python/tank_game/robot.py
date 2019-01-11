@@ -1,7 +1,6 @@
 import pygame
-import player
 import copy
-from colors import *
+from colors import * 
 import loader_utils
 
 from pygame.math import Vector2
