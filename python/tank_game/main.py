@@ -167,14 +167,14 @@ class Game:
 
 
         # Create the robot object
-        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=0)
-        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=45)
-        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=90)
+        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=0,is_mecanum=False)
+        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=45,is_mecanum=False)
+        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=90,is_mecanum=False)
 
 
-        self.robot4 = Robot(red_x, red_y1,RED1,angle=270)
-        self.robot5 = Robot(red_x, red_y2,RED2,angle=270)
-        self.robot6 = Robot(red_x, red_y3,RED3,angle=270)
+        self.robot4 = Robot(red_x, red_y1,RED1,angle=270,is_mecanum=False)
+        self.robot5 = Robot(red_x, red_y2,RED2,angle=270,is_mecanum=False)
+        self.robot6 = Robot(red_x, red_y3,RED3,angle=270,is_mecanum=False)
 
 
 #        self.all_sprites_list = pygame.sprite.Group()

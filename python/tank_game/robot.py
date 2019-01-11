@@ -10,7 +10,7 @@ from robot_chassis import RobotChassis
 #####################################################################
 class Robot(pygame.sprite.Sprite):
 
-    def __init__(self, x, y,color=BLUE, angle=2):
+    def __init__(self, x, y,color, angle, is_mecanum=False, width=15, length=38):
 
         # Call the parent's constructor
         super(Robot,self).__init__()
@@ -18,8 +18,8 @@ class Robot(pygame.sprite.Sprite):
         self.verbosity=0
         
 
-        width=15
-        length=38
+#        width=15
+#        length=38
 
         if True:
             self.image = pygame.Surface((width,length), pygame.SRCALPHA)
@@ -37,7 +37,7 @@ class Robot(pygame.sprite.Sprite):
         self.rect.y = y
 
         
-        self.chassis=RobotChassis(x,y,angle)
+        self.chassis=RobotChassis(x,y,angle,is_mecanum)
 
         self.dt=1
 

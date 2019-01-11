@@ -10,7 +10,7 @@ from pygame.math import Vector2
 # the rect element is used to blit the sprite
 
 class RobotChassis(pygame.sprite.Sprite):
-    def __init__(self, x, y, angle=2):
+    def __init__(self, x, y, angle,is_macanum=True):
         self.position= Vector2(x,y)
         self.heading= Vector2(0,0)
         #self.velocity= Vector2(0,0)
@@ -21,8 +21,7 @@ class RobotChassis(pygame.sprite.Sprite):
 
         self.dt=1
         self.verbosity=0
-        #self.is_macanum=False
-        self.is_macanum=True
+        self.is_macanum=is_macanum
         
     def set_heading_angle(self,theta):
         self.heading.from_polar([1,theta])

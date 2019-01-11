@@ -25,9 +25,9 @@ class Depot(pygame.sprite.Sprite):
         width=int(width)
         height=int(height)
 
-        if False:
+        if True:
             picture = pygame.image.load('./data/depot.png')
-            picture= pygame.transform.rotate(picture,angle)
+            #picture= pygame.transform.rotate(picture,angle)
             self.image=pygame.transform.scale(picture, (width,height))
         else:        
             self.image = pygame.Surface((width,height), pygame.SRCALPHA)
