@@ -5,7 +5,7 @@ from colors import *
 import loader_utils
 
 from pygame.math import Vector2
-from robot_frame import RobotFrame
+from robot_chassis import RobotChassis
 
  
 #####################################################################
@@ -38,7 +38,7 @@ class Robot(pygame.sprite.Sprite):
         self.rect.y = y
 
         
-        self.frame=RobotFrame(x,y,angle)
+        self.chassis=RobotChassis(x,y,angle)
 
         self.dt=1
 
@@ -48,21 +48,21 @@ class Robot(pygame.sprite.Sprite):
 
     def changespeed(self, a_x, a_y):
         if a_y !=0:
-            self.frame.change_forward_speed(a_y)
+            self.chassis.change_forward_speed(a_y)
         elif a_x !=0:
-            self.frame.change_side_speed(a_x)        
+            self.chassis.change_side_speed(a_x)        
 
         
 
     def update(self,all_sprites_list):
 
-        backup_frame=copy.deepcopy(self.frame)
+        backup_chassis=copy.deepcopy(self.chassis)
         self.update_base()
         
         for sprite in all_sprites_list:
             if self != sprite:
                 if self.is_collided_with(sprite):
-                    self.frame=copy.deepcopy(backup_frame)
+                    self.chassis=copy.deepcopy(backup_chassis)
 
         
 
@@ -79,23 +79,23 @@ class Robot(pygame.sprite.Sprite):
         # velocity=Vector2(self.side_speed,self.forward_speed)
         # velocity.rotate_ip(-theta)
         
-        # self.frame.position = self.frame.position+self.dt*velocity
+        # self.chassis.position = self.chassis.position+self.dt*velocity
 
         # delta_angle=self.rotation_rate*self.dt
-        # self.frame.heading.rotate_ip(delta_angle)
+        # self.chassis.heading.rotate_ip(delta_angle)
 
         # if self.verbosity > 5:
-        #     print "center=",self.frame.position,
+        #     print "center=",self.chassis.position,
         #     print "delta_angle=",delta_angle,
         #     print "heading_angle=",self.get_heading_angle()
 
 
         
-        self.frame.update_base()
+        self.chassis.update_base()
         self.update_rect_heading_and_position()  
 
     def update_rect_heading_and_position(self):
-        angle= self.frame.get_heading_angle()
+        angle= self.chassis.get_heading_angle()
         rect_orig=self.image_original.get_rect()
         
         self.image = pygame.transform.rotate(self.image_original, angle)
@@ -103,11 +103,11 @@ class Robot(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=rect_orig.center)
 
         #now translate the whole thing
-        self.rect.move_ip(self.frame.position.x,self.frame.position.y)
+        self.rect.move_ip(self.chassis.position.x,self.chassis.position.y)
 
     def rotate(self,delta_angle):
         #self.rotation_rate+=delta_angle
-        self.frame.rotate(delta_angle)
+        self.chassis.rotate(delta_angle)
         
         
     def is_collided_with(self, sprite):

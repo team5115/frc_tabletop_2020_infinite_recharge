@@ -9,7 +9,7 @@ from pygame.math import Vector2
 
 # the rect element is used to blit the sprite
 
-class RobotFrame(pygame.sprite.Sprite):
+class RobotChassis(pygame.sprite.Sprite):
     def __init__(self, x, y, angle=2):
         self.position= Vector2(x,y)
         self.heading= Vector2(0,0)
