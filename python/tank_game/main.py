@@ -196,14 +196,14 @@ class Game:
         
 
         # Create the robot object
-        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=0,is_mecanum=False)
-        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=45,is_mecanum=False)
-        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=90,is_mecanum=False)
+        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=0,keymap=key_map_1, is_mecanum=False)
+        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=45,keymap=key_map_2,is_mecanum=False)
+        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=90,keymap=key_map_3,is_mecanum=False)
 
 
-        self.robot4 = Robot(red_x, red_y1,RED1,angle=270,is_mecanum=False)
-        self.robot5 = Robot(red_x, red_y2,RED2,angle=270,is_mecanum=False)
-        self.robot6 = Robot(red_x, red_y3,RED3,angle=270,is_mecanum=False)
+        self.robot4 = Robot(red_x, red_y1,RED1,angle=270,keymap=key_map_4,is_mecanum=False)
+        self.robot5 = Robot(red_x, red_y2,RED2,angle=270,keymap={},is_mecanum=False)
+        self.robot6 = Robot(red_x, red_y3,RED3,angle=270,keymap={},is_mecanum=False)
 
 
 #        self.all_sprites_list = pygame.sprite.Group()

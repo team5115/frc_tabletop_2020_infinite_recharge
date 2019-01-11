@@ -10,14 +10,15 @@ from robot_chassis import RobotChassis
 #####################################################################
 class Robot(pygame.sprite.Sprite):
 
-    def __init__(self, x, y,color, angle, is_mecanum=False, width=15, length=38):
+    def __init__(self, x, y,color, angle, keymap, is_mecanum=False, width=15, length=38):
 
         # Call the parent's constructor
         super(Robot,self).__init__()
 
         self.verbosity=0
-        
 
+        self.keymap=keymap
+        
 #        width=15
 #        length=38
 
@@ -112,3 +113,40 @@ class Robot(pygame.sprite.Sprite):
     def is_collided_with(self, sprite):
         is_collided=self.rect.colliderect(sprite.rect)
         return is_collided
+
+    def process_event(self, event):
+        if ~keymap.has_key(event):
+            return
+        
+        if event.type == pygame.QUIT:
+            return
+        
+        # Set the speed based on the key pressed
+        elif event.type == pygame.KEYDOWN:            
+            if value == "strafe_left":
+                self.changespeed(-d_speed, 0)
+            elif value == "strafe_right":
+                self.changespeed(d_speed, 0)
+            elif value == "forward":
+                self.changespeed(0, -d_speed)
+            elif value == "backward":
+                self.changespeed(0, d_speed)
+            elif value == "rotate_left":
+                self.rotate(d_angle)
+            elif value == "rotate_right":
+                self.rotate(-d_angle)
+
+                # Reset speed when key goes up
+        elif event.type == pygame.KEYUP:
+            if value == "strafe_left":
+                self.changespeed(d_speed, 0)
+            elif value == "strafe_right":
+                self.changespeed(-d_speed, 0)
+            elif value == "forward":
+                self.changespeed(0, d_speed)
+            elif value == "backward":
+                self.changespeed(0, -d_speed)
+            elif value == "rotate_left":
+                self.rotate(-d_angle)
+            elif value == "rotate_right":
+                self.rotate(d_angle)
