@@ -10,7 +10,7 @@ from robot_chassis import RobotChassis
 #####################################################################
 class Robot(pygame.sprite.Sprite):
 
-    def __init__(self, x, y,color, angle, keymap, is_mecanum=False, team_name=5115, width=15, length=38):
+    def __init__(self, x, y,color, angle, keymap, is_mecanum=False, team_name=5115, width=27, length=38):
 
         # Call the parent's constructor
         super(Robot,self).__init__()
@@ -92,26 +92,7 @@ class Robot(pygame.sprite.Sprite):
         self.last_heading=heading
         self.last_forward
         
-    def update_base(self):
-
-   
-        # theta=self.get_heading_angle()
-
-        # velocity=Vector2(self.side_speed,self.forward_speed)
-        # velocity.rotate_ip(-theta)
-        
-        # self.chassis.position = self.chassis.position+self.dt*velocity
-
-        # delta_angle=self.rotation_rate*self.dt
-        # self.chassis.heading.rotate_ip(delta_angle)
-
-        # if self.verbosity > 5:
-        #     print "center=",self.chassis.position,
-        #     print "delta_angle=",delta_angle,
-        #     print "heading_angle=",self.get_heading_angle()
-
-
-        
+    def update_base(self):        
         self.chassis.update_base()
         self.update_rect_heading_and_position()  
 

@@ -7,7 +7,7 @@ FRC robot sim
 Team 5115 - Knight Riders
 
 Author: Joe Adams
-version 1
+version 2
 
 19/01/11 - multiple keymaps now working
 
@@ -24,6 +24,7 @@ from rocket import Rocket
 from wall import Wall
 
 
+from hab_platform_level_0 import Hab_platform_level_0
 from hab_platform_level_1 import Hab_platform_level_1
 from hab_platform_level_2 import Hab_platform_level_2
 from hab_platform_level_3 import Hab_platform_level_3
@@ -115,6 +116,10 @@ class Game:
         y=mid_y
         blue_hab_platform_level_1=Hab_platform_level_1(x,y,BLUE_HAB1,flip_x=False)
 
+        x=blue_hab_platform_level_3.rect.right
+        y=mid_y
+        blue_hab_platform_level_0=Hab_platform_level_0(x,y,BLUE_HAB0,flip_x=False)
+
         x=min_x
         y=blue_hab_platform_level_2b.rect.bottom
         blue_depot_a=Depot(x,y,ORANGE,flip_x=False,flip_y=False)
@@ -141,6 +146,10 @@ class Game:
         x=red_hab_platform_level_3.rect.left
         y=mid_y        
         red_hab_platform_level_1=Hab_platform_level_1(x,y,RED_HAB1,flip_x=True)
+
+        x=red_hab_platform_level_3.rect.left
+        y=mid_y        
+        red_hab_platform_level_0=Hab_platform_level_0(x,y,RED_HAB0,flip_x=True)
 
         x=max_x
         y=red_hab_platform_level_2b.rect.bottom
@@ -224,6 +233,7 @@ class Game:
         self.all_sprites_list.add(rocket_2)
         self.all_sprites_list.add(rocket_3)
         self.all_sprites_list.add(rocket_4)
+        self.all_sprites_list.add(blue_hab_platform_level_0)
         self.all_sprites_list.add(blue_hab_platform_level_1)
         self.all_sprites_list.add(blue_hab_platform_level_2a)
         self.all_sprites_list.add(blue_hab_platform_level_2b)
@@ -231,7 +241,8 @@ class Game:
         self.all_sprites_list.add(blue_depot_a)
         self.all_sprites_list.add(blue_depot_b)
 
-        
+
+        self.all_sprites_list.add(red_hab_platform_level_0)
         self.all_sprites_list.add(red_hab_platform_level_1)
         self.all_sprites_list.add(red_hab_platform_level_2a)
         self.all_sprites_list.add(red_hab_platform_level_2b)
@@ -306,27 +317,27 @@ class Game:
         mid_x=max_x/2.0
         mid_y=max_y/2.0
 
+        line_width=2*in_
 
         # draw on the surface object
         self.screen.fill(WHITE)
         pygame.draw.polygon(self.screen, GREY, ((min_x,min_y), (max_x, min_y), (max_x,max_y), (min_x,max_y), (0, 0)))
         
- #       pygame.draw.line(self.screen, YELLOW, (mid_x, min_y), (mid_x, max_y), 2)
-        pygame.draw.line(self.screen, YELLOW, (min_x, mid_y), (max_x, mid_y), 2)
 
-        pygame.draw.line(self.screen, BLUE, (self.hab_line_x, min_y), (self.hab_line_x, max_y), 2)
-        pygame.draw.line(self.screen, RED, (max_x-self.hab_line_x, min_y), (max_x-self.hab_line_x, max_y), 2)
+        pygame.draw.line(self.screen, YELLOW, (min_x, mid_y), (max_x, mid_y), line_width)
+
+        pygame.draw.line(self.screen, BLUE, (self.hab_line_x, min_y), (self.hab_line_x, max_y), line_width)
+        pygame.draw.line(self.screen, RED, (max_x-self.hab_line_x, min_y), (max_x-self.hab_line_x, max_y), line_width)
 
         dx=9*in_
         mid_blue_x=mid_x-dx
         mid_red_x=mid_x+dx
         
-        pygame.draw.line(self.screen, BLUE, (mid_blue_x, min_y), (mid_blue_x, max_y), 2)
-        pygame.draw.line(self.screen, RED, (mid_red_x, min_y), (mid_red_x, max_y), 2)
+        pygame.draw.line(self.screen, BLUE, (mid_blue_x, min_y), (mid_blue_x, max_y), line_width)
+        pygame.draw.line(self.screen, RED, (mid_red_x, min_y), (mid_red_x, max_y), line_width)
 
      
-#        xo=229*in_
-#        pygame.draw.line(self.screen, ORANGE, (xo, min_y), (xo, max_y), 2)
+
         
     def run(self):
         d_angle=3
