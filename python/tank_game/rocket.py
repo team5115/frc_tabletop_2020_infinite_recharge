@@ -24,9 +24,13 @@ class Rocket(pygame.sprite.Sprite):
         width=int(width)
         height=int(height)
 
-        if False:
-            picture = pygame.image.load('./data/red_rocket.png')
-            if (flip_y):
+        if True:
+            if (color==RED):
+                picture = pygame.image.load('./data/red_rocket.png')
+            else:
+                picture = pygame.image.load('./data/blue_rocket.png')
+                
+            if not (flip_y):
                 angle=180
                 picture= pygame.transform.rotate(picture,angle)
             self.image=pygame.transform.scale(picture, (width,height))

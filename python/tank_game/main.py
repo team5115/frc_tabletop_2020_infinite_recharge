@@ -80,7 +80,7 @@ class Game:
         cargo_ship_xo=mid_x
         cargo_ship_yo=mid_y
 
-        cargo_ship_1=Cargo_ship(cargo_ship_xo,cargo_ship_yo,GREEN)
+        cargo_ship_1=Cargo_ship(cargo_ship_xo,cargo_ship_yo)
 
         rocket_1_xo=229*in_
         rocket_1_yo=min_y
