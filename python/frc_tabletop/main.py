@@ -7,9 +7,14 @@ FRC robot sim
 Team 5115 - Knight Riders
 
 Author: Joe Adams
-version 2
+ Email: joseph.s.adams@gmail.com
+   URL: https://github.com/jsadams/frc_tabletop.git
+
+version: 2
 
 19/01/11 - multiple keymaps now working
+
+
 
 """
 
