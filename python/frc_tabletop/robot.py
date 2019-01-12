@@ -2,6 +2,7 @@ import pygame
 import copy
 from colors import * 
 import loader_utils
+from units import *
 
 from pygame.math import Vector2
 from robot_chassis import RobotChassis
@@ -10,7 +11,7 @@ from robot_chassis import RobotChassis
 #####################################################################
 class Robot(pygame.sprite.Sprite):
 
-    def __init__(self, x, y,color, angle, keymap, is_mecanum=False, team_name=5115, width=27, length=38):
+    def __init__(self, x, y,color, angle, keymap, is_mecanum=False, team_name=5115, width=27*in_, length=38*in_):
 
         # Call the parent's constructor
         super(Robot,self).__init__()

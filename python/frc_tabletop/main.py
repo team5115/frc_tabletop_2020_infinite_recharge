@@ -230,16 +230,30 @@ class Game:
                     pygame.K_PAGEUP: "rotate_right",
                     pygame.K_PAGEDOWN:  "rotate_left" }
 
+        key_map_5={ pygame.K_KP0: "forward",
+                    pygame.K_KP1: "backward",
+                    pygame.K_KP2: "strafe_left", 
+                    pygame.K_KP3: "strafe_right",
+                    pygame.K_KP4:  "rotate_right",
+                    pygame.K_KP5: "rotate_left" }
+
+        key_map_6={ pygame.K_0: "forward",
+                    pygame.K_1: "backward",
+                    pygame.K_2: "strafe_left", 
+                    pygame.K_3: "strafe_right",
+                    pygame.K_4: "rotate_right",
+                    pygame.K_5: "rotate_left" }
+
 
         # Create the robot object
-        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=key_map_1, is_mecanum=True,team_name=5115)
+        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=key_map_1, is_mecanum=True,team_name=5115,width=10*in_,length=45*in_)
         self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=key_map_2, is_mecanum=False,team_name=493)
         self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=270,keymap=key_map_3, is_mecanum=False,team_name=503)
 
 
         self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=key_map_4,is_mecanum=True,team_name=3361)
-        self.robot5 = Robot(red_x, red_y2,RED2,angle=90,keymap={},is_mecanum=False,team_name=3258)
-        self.robot6 = Robot(red_x, red_y3,RED3,angle=90,keymap={},is_mecanum=False,team_name=2106)
+        self.robot5 = Robot(red_x, red_y2,RED2,angle=90,keymap=key_map_5,is_mecanum=False,team_name=3258)
+        self.robot6 = Robot(red_x, red_y3,RED3,angle=90,keymap=key_map_6,is_mecanum=False,team_name=2106)
 
 
 #        self.all_sprites_list = pygame.sprite.Group()
