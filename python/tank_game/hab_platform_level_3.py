@@ -19,14 +19,16 @@ class Hab_platform_level_3(pygame.sprite.Sprite):
         self.verbosity=0
 
         width=4*ft_
-        depth=4*ft_
+        height=4*ft_
+        width=int(width)
+        height=int(height)
 
         if False:
             picture = pygame.image.load('./data/hab_zone.png')
             picture= pygame.transform.rotate(picture,angle)
-            self.image=pygame.transform.scale(picture, (width,depth))
+            self.image=pygame.transform.scale(picture, (width,height))
         else:        
-            self.image = pygame.Surface((width,depth), pygame.SRCALPHA)
+            self.image = pygame.Surface((width,height), pygame.SRCALPHA)
             self.image.fill(color)
 
 

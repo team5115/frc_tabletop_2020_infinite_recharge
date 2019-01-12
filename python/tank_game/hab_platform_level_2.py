@@ -20,6 +20,8 @@ class Hab_platform_level_2(pygame.sprite.Sprite):
 
         height=3*ft_+4*in_
         width=4*ft_
+        width=int(width)
+        height=int(height)
 
         if False:
             picture = pygame.image.load('./data/hab_zone.png')

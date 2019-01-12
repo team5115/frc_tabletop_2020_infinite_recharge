@@ -54,11 +54,17 @@ class Robot(pygame.sprite.Sprite):
         
         # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+
+        # if (angle==0):
+        #     self.rect.right = x
+        # else:
+        #    self.rect.left = x
+
+        self.rect.centerx = x
+        self.rect.centery = y
 
         
-        self.chassis=RobotChassis(x,y,angle,is_mecanum)
+        self.chassis=RobotChassis(self.rect.x,self.rect.y,angle,is_mecanum)
 
         self.dt=1
         self.d_angle=3

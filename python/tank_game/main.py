@@ -166,14 +166,13 @@ class Game:
 
         blue_x=blue_hab_platform_level_1.rect.centerx
         blue_y1=blue_hab_platform_level_1.rect.centery
-        blue_y1=blue_hab_platform_level_1.rect.centery
-        blue_y2=blue_y1+blue_hab_platform_level_1.rect.height/2
-        blue_y3=blue_y1-blue_hab_platform_level_1.rect.height/2
+        blue_y2=blue_y1+blue_hab_platform_level_1.rect.height/3
+        blue_y3=blue_y1-blue_hab_platform_level_1.rect.height/3
 
-        red_x=red_hab_platform_level_1.rect.left
+        red_x=red_hab_platform_level_1.rect.centerx
         red_y1=red_hab_platform_level_1.rect.centery
-        red_y2=red_y1+red_hab_platform_level_1.rect.height/2
-        red_y3=red_y1-red_hab_platform_level_1.rect.height/2
+        red_y2=red_y1+red_hab_platform_level_1.rect.height/3
+        red_y3=red_y1-red_hab_platform_level_1.rect.height/3
         
        
         

@@ -20,9 +20,19 @@ class Hab_platform_level_0(pygame.sprite.Sprite):
 
         width=47.14*in_
         height=75*in_*2
+        angle=0
 
-        if False:
-            picture = pygame.image.load('./data/hab_zone.png')
+        width=int(width)
+        height=int(height)
+
+        
+        if True:
+
+            if color==BLUE_HAB0:
+                picture = pygame.image.load('./data/hab_zone_ramp_blue.png')
+            else:
+                picture = pygame.image.load('./data/hab_zone_ramp_red.png')
+                
             picture= pygame.transform.rotate(picture,angle)
             self.image=pygame.transform.scale(picture, (width,height))
         else:        
