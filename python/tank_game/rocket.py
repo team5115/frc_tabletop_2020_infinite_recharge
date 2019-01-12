@@ -44,7 +44,7 @@ class Rocket(pygame.sprite.Sprite):
         
         # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()
-        self.rect.x = x
+        self.rect.centerx = x
         self.rect.y = y
 
         if (flip_y==True):

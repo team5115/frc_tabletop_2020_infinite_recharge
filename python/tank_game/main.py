@@ -44,13 +44,13 @@ class Game:
         self.field_width=54*ft_;
         self.field_height=27*ft_;
 
-        
+        self.hab_line_x=94.3*in_;
         # Call this function so the Pygame library can initialize itself
         pygame.init()
 
         # Create an 800x600 sized screen
         #screen_size=[800,600]
-        screen_size=[self.field_width,self.field_height]
+        screen_size=[self.field_width,int(self.field_height*1.20)]
         self.screen = pygame.display.set_mode(screen_size,pygame.RESIZABLE)
     
         # Set the title of the window
@@ -88,7 +88,7 @@ class Game:
         rocket_2_xo=rocket_1_xo
         rocket_2_yo=max_y
 
-        rocket_3_xo=self.field_width-rocket_1_xo
+        rocket_3_xo=max_x-rocket_1_xo
         rocket_3_yo=rocket_1_yo
 
         rocket_4_xo=rocket_3_xo
@@ -101,19 +101,19 @@ class Game:
 
         x=min_x
         y=mid_y        
-        blue_hab_platform_level_3=Hab_platform_level_3(x,y,HAB3,flip_x=False)
+        blue_hab_platform_level_3=Hab_platform_level_3(x,y,BLUE_HAB3,flip_x=False)
 
         x=min_x
         y=blue_hab_platform_level_3.rect.bottom
-        blue_hab_platform_level_2b=Hab_platform_level_2(x,y,HAB2,flip_x=False,flip_y=False)
+        blue_hab_platform_level_2b=Hab_platform_level_2(x,y,BLUE_HAB2,flip_x=False,flip_y=False)
 
         x=min_x
         y=blue_hab_platform_level_3.rect.top
-        blue_hab_platform_level_2a=Hab_platform_level_2(x,y,HAB2,flip_x=False,flip_y=True)
+        blue_hab_platform_level_2a=Hab_platform_level_2(x,y,BLUE_HAB2,flip_x=False,flip_y=True)
 
         x=blue_hab_platform_level_3.rect.right
         y=mid_y
-        blue_hab_platform_level_1=Hab_platform_level_1(x,y,HAB1,flip_x=False)
+        blue_hab_platform_level_1=Hab_platform_level_1(x,y,BLUE_HAB1,flip_x=False)
 
         x=min_x
         y=blue_hab_platform_level_2b.rect.bottom
@@ -128,19 +128,19 @@ class Game:
 
         x=max_x
         y=mid_y        
-        red_hab_platform_level_3=Hab_platform_level_3(x,y,HAB3,flip_x=True)
+        red_hab_platform_level_3=Hab_platform_level_3(x,y,RED_HAB3,flip_x=True)
 
         x=max_x
         y=red_hab_platform_level_3.rect.bottom
-        red_hab_platform_level_2b=Hab_platform_level_2(x,y,HAB2,flip_x=True,flip_y=False)
+        red_hab_platform_level_2b=Hab_platform_level_2(x,y,RED_HAB2,flip_x=True,flip_y=False)
 
         x=max_x
         y=red_hab_platform_level_3.rect.top
-        red_hab_platform_level_2a=Hab_platform_level_2(x,y,HAB2,flip_x=True,flip_y=True)
+        red_hab_platform_level_2a=Hab_platform_level_2(x,y,RED_HAB2,flip_x=True,flip_y=True)
         
         x=red_hab_platform_level_3.rect.left
         y=mid_y        
-        red_hab_platform_level_1=Hab_platform_level_1(x,y,HAB1,flip_x=True)
+        red_hab_platform_level_1=Hab_platform_level_1(x,y,RED_HAB1,flip_x=True)
 
         x=max_x
         y=red_hab_platform_level_2b.rect.bottom
@@ -310,10 +310,24 @@ class Game:
         # draw on the surface object
         self.screen.fill(WHITE)
         pygame.draw.polygon(self.screen, GREY, ((min_x,min_y), (max_x, min_y), (max_x,max_y), (min_x,max_y), (0, 0)))
-        pygame.draw.line(self.screen, YELLOW, (mid_x, min_y), (mid_x, max_y), 2)
+        
+ #       pygame.draw.line(self.screen, YELLOW, (mid_x, min_y), (mid_x, max_y), 2)
         pygame.draw.line(self.screen, YELLOW, (min_x, mid_y), (max_x, mid_y), 2)
-  
-    
+
+        pygame.draw.line(self.screen, BLUE, (self.hab_line_x, min_y), (self.hab_line_x, max_y), 2)
+        pygame.draw.line(self.screen, RED, (max_x-self.hab_line_x, min_y), (max_x-self.hab_line_x, max_y), 2)
+
+        dx=9*in_
+        mid_blue_x=mid_x-dx
+        mid_red_x=mid_x+dx
+        
+        pygame.draw.line(self.screen, BLUE, (mid_blue_x, min_y), (mid_blue_x, max_y), 2)
+        pygame.draw.line(self.screen, RED, (mid_red_x, min_y), (mid_red_x, max_y), 2)
+
+     
+#        xo=229*in_
+#        pygame.draw.line(self.screen, ORANGE, (xo, min_y), (xo, max_y), 2)
+        
     def run(self):
         d_angle=3
         d_speed=3
