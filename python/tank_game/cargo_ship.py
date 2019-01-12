@@ -1,7 +1,7 @@
 import pygame
-import player
 import copy
 from colors import *
+from units import *
 
 from pygame.math import Vector2
 
@@ -18,8 +18,8 @@ class Cargo_ship(pygame.sprite.Sprite):
 
         self.verbosity=0
 
-        width=40.5+21.75+21.75*2
-        height=21.75*3
+        width=95.88*in_*2
+        height=45.50*in_
 
         width=int(width)
         height=int(height)

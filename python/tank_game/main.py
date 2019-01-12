@@ -36,24 +36,32 @@ from units import *
 class Game:
 
     def __init__(self):
+
+        ##############################################
+        #field_width=230*in_*3
+        #field_height=133*in_*3
+
+        self.field_width=54*ft_;
+        self.field_height=27*ft_;
+
+        
         # Call this function so the Pygame library can initialize itself
         pygame.init()
 
         # Create an 800x600 sized screen
-        screen_size=[800,500]
+        #screen_size=[800,600]
+        screen_size=[self.field_width,self.field_height]
         self.screen = pygame.display.set_mode(screen_size,pygame.RESIZABLE)
     
         # Set the title of the window
         pygame.display.set_caption('Test')
 
 
-        ##############################################
-        field_width=230*3
-        field_height=133*3
-
+    
         
-        max_x=field_width;
-        max_y=field_height;
+        
+        max_x=self.field_width;
+        max_y=self.field_height;
 
         min_x=0
         min_y=0
@@ -61,38 +69,35 @@ class Game:
         mid_y=max_y/2.0
 
 
-        wall_thickness=1
+        wall_thickness=1*in_
         
-        wall_1=Wall(min_x,min_y,width=field_width,height=wall_thickness,color=BLACK)
-        wall_2=Wall(min_x,max_y,width=field_width,height=wall_thickness,color=BLACK)
+        wall_1=Wall(min_x,min_y,width=self.field_width,height=wall_thickness,color=BLACK)
+        wall_2=Wall(min_x,max_y,width=self.field_width,height=wall_thickness,color=BLACK)
 
-        wall_3=Wall(min_x,min_y,width=wall_thickness,height=field_height,color=BLACK)
-        wall_4=Wall(max_x,min_y,width=wall_thickness,height=field_height,color=BLACK)
+        wall_3=Wall(min_x,min_y,width=wall_thickness,height=self.field_height,color=BLACK)
+        wall_4=Wall(max_x,min_y,width=wall_thickness,height=self.field_height,color=BLACK)
 
-
-
-        
         cargo_ship_xo=mid_x
         cargo_ship_yo=mid_y
 
         cargo_ship_1=Cargo_ship(cargo_ship_xo,cargo_ship_yo,GREEN)
 
-        rocket_1_xo=229
-        rocket_1_yo=0
+        rocket_1_xo=229*in_
+        rocket_1_yo=min_y
 
         rocket_2_xo=rocket_1_xo
-        rocket_2_yo=field_height-27
+        rocket_2_yo=max_y
 
-        rocket_3_xo=field_width-rocket_1_xo
+        rocket_3_xo=self.field_width-rocket_1_xo
         rocket_3_yo=rocket_1_yo
 
         rocket_4_xo=rocket_3_xo
         rocket_4_yo=rocket_2_yo
 
         rocket_1=Rocket(rocket_1_xo,rocket_1_yo,BLUE)
-        rocket_2=Rocket(rocket_2_xo,rocket_2_yo,BLUE,180)
+        rocket_2=Rocket(rocket_2_xo,rocket_2_yo,BLUE,flip_y=True)
         rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
-        rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,180)
+        rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,flip_y=True)
 
         x=min_x
         y=mid_y        
@@ -195,14 +200,14 @@ class Game:
 
 
         # Create the robot object
-        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=key_map_1, is_mecanum=False)
-        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=key_map_2,is_mecanum=False)
-        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=270,keymap=key_map_3,is_mecanum=False)
+        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=key_map_1, is_mecanum=True,team_name=5115)
+        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=key_map_2, is_mecanum=False,team_name=493)
+        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=270,keymap=key_map_3, is_mecanum=False,team_name=503)
 
 
-        self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=key_map_4,is_mecanum=False)
-        self.robot5 = Robot(red_x, red_y2,RED2,angle=90,keymap={},is_mecanum=False)
-        self.robot6 = Robot(red_x, red_y3,RED3,angle=90,keymap={},is_mecanum=False)
+        self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=key_map_4,is_mecanum=True,team_name=3361)
+        self.robot5 = Robot(red_x, red_y2,RED2,angle=90,keymap={},is_mecanum=False,team_name=3258)
+        self.robot6 = Robot(red_x, red_y3,RED3,angle=90,keymap={},is_mecanum=False,team_name=2106)
 
 
 #        self.all_sprites_list = pygame.sprite.Group()
@@ -291,11 +296,10 @@ class Game:
 
 
     def redraw_screen(self):
-        field_width=230*3
-        field_height=133*3
+        
 
-        max_x=field_width;
-        max_y=field_height;
+        max_x=self.field_width;
+        max_y=self.field_height;
 
         min_x=0
         min_y=0
@@ -305,17 +309,10 @@ class Game:
 
         # draw on the surface object
         self.screen.fill(WHITE)
-        pygame.draw.polygon(self.screen, GREY, ((0,0), (field_width, 0), (field_width,field_height), (0,field_height), (0, 0)))
-    #    pygame.draw.line(self.screen, GREEN, (0,0), (field_width, 0), (field_width,field_height), (0,field_height), (0,0), 10)
-
+        pygame.draw.polygon(self.screen, GREY, ((min_x,min_y), (max_x, min_y), (max_x,max_y), (min_x,max_y), (0, 0)))
         pygame.draw.line(self.screen, YELLOW, (mid_x, min_y), (mid_x, max_y), 2)
         pygame.draw.line(self.screen, YELLOW, (min_x, mid_y), (max_x, mid_y), 2)
-    #    pygame.draw.line(self.screen, BLUE, (120, 60), (60, 120))
-    #    pygame.draw.line(self.screen, BLUE, (60, 120), (120, 120), 4)
-    #    pygame.draw.circle(self.screen, BLUE, (300, 50), 20, 0)
-    #    pygame.draw.ellipse(self.screen, RED, (300, 250, 40, 80), 1)
-    #    pygame.draw.rect(self.screen, RED, (200, 150, 100, 50))
-
+  
     
     def run(self):
         d_angle=3

@@ -10,7 +10,7 @@ from robot_chassis import RobotChassis
 #####################################################################
 class Robot(pygame.sprite.Sprite):
 
-    def __init__(self, x, y,color, angle, keymap, is_mecanum=False, width=15, length=38):
+    def __init__(self, x, y,color, angle, keymap, is_mecanum=False, team_name=5115, width=15, length=38):
 
         # Call the parent's constructor
         super(Robot,self).__init__()
@@ -18,15 +18,35 @@ class Robot(pygame.sprite.Sprite):
         self.verbosity=0
 
         self.keymap=keymap
-        
-#        width=15
-#        length=38
 
         if True:
             self.image = pygame.Surface((width,length), pygame.SRCALPHA)
+            
             self.image.fill(color)
+            width=self.image.get_rect().width
+            height=self.image.get_rect().width
+
+
+            if is_mecanum:
+                for j in range(height/3):
+                    for i in range(width):
+                        if (i%2==0) and (j%2==0):
+                            self.image.set_at([i,j],YELLOW)
+
+            else:
+                for j in range(height/3):
+                    for i in range(width):
+                        self.image.set_at([i,j],YELLOW)
+
+                    
+            font = pygame.font.SysFont('Sans', 10)
+            text = font.render(str(team_name), True, (255, 255, 255))
+            text = pygame.transform.rotate(text, angle+180)
+#            self.image.blit(text, self.image.get_rect())
+            self.image.blit(text, [0,height/2])
+            
         else:
-            picture = pygame.image.load('./data/playerShip1_orange.png')
+            picture = pygame.image.load('./data/playerShip1_orange.png').convert()
             self.image=pygame.transform.scale(picture, (width,length))
 
         self.image_original=self.image
@@ -54,7 +74,6 @@ class Robot(pygame.sprite.Sprite):
         elif a_x !=0:
             self.chassis.change_side_speed(a_x)        
 
-        
 
     def update(self,all_sprites_list):
 

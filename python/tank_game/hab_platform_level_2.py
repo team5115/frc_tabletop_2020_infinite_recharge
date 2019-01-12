@@ -1,5 +1,4 @@
 import pygame
-import player
 import copy
 from colors import *
 from units import *

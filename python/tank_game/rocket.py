@@ -1,7 +1,7 @@
 import pygame
-import player
 import copy
 from colors import *
+from units import *
 
 from pygame.math import Vector2
 
@@ -11,19 +11,24 @@ from pygame.math import Vector2
 #####################################################################
 class Rocket(pygame.sprite.Sprite):
 
-    def __init__(self, x, y,color=GREEN,angle=0):
+    def __init__(self, x, y,color=GREEN,flip_y=False):
 
         # Call the parent's constructor
         super(Rocket,self).__init__()
 
         self.verbosity=0
 
-        width=27*2
-        height=27
+        width=48*in_
+        height=24.8*in_
 
-        if True:
+        width=int(width)
+        height=int(height)
+
+        if False:
             picture = pygame.image.load('./data/red_rocket.png')
-            picture= pygame.transform.rotate(picture,angle)
+            if (flip_y):
+                angle=180
+                picture= pygame.transform.rotate(picture,angle)
             self.image=pygame.transform.scale(picture, (width,height))
         else:        
             self.image = pygame.Surface((width,height), pygame.SRCALPHA)
@@ -38,4 +43,6 @@ class Rocket(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-        
+        if (flip_y==True):
+            self.rect.y=y-height
+
