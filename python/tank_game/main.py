@@ -29,6 +29,7 @@ from hab_platform_level_1 import Hab_platform_level_1
 from hab_platform_level_2 import Hab_platform_level_2
 from hab_platform_level_3 import Hab_platform_level_3
 from depot import Depot
+from loading_station import LoadingStation
 
 from colors import *
 from units import *
@@ -128,7 +129,15 @@ class Game:
         y=blue_hab_platform_level_2a.rect.top
         blue_depot_b=Depot(x,y,ORANGE,flip_x=False,flip_y=True)
 
-        
+        dy_loading_station=27*in_
+        x=min_x
+        y=min_y+dy_loading_station
+        blue_loading_station_a=LoadingStation(x,y,ORANGE,flip_x=False,flip_y=False)
+
+        x=min_x
+        y=max_y-dy_loading_station
+        blue_loading_station_b=LoadingStation(x,y,ORANGE,flip_x=False,flip_y=True)
+
         
 
         x=max_x
@@ -160,6 +169,16 @@ class Game:
         red_depot_b=Depot(x,y,ORANGE,flip_x=True,flip_y=True)
 
 
+        dy_loading_station=27*in_
+        x=max_x
+        y=min_y+dy_loading_station
+        red_loading_station_a=LoadingStation(x,y,ORANGE,flip_x=True,flip_y=False)
+
+        x=max_x
+        y=max_y-dy_loading_station
+        red_loading_station_b=LoadingStation(x,y,ORANGE,flip_x=True,flip_y=True)
+
+        
         ############################################
         #  Robot starts
         #
@@ -239,6 +258,8 @@ class Game:
         self.all_sprites_list.add(blue_hab_platform_level_3)
         self.all_sprites_list.add(blue_depot_a)
         self.all_sprites_list.add(blue_depot_b)
+        self.all_sprites_list.add(blue_loading_station_a)
+        self.all_sprites_list.add(blue_loading_station_b)
 
 
         self.all_sprites_list.add(red_hab_platform_level_0)
@@ -248,6 +269,8 @@ class Game:
         self.all_sprites_list.add(red_hab_platform_level_3)
         self.all_sprites_list.add(red_depot_a)
         self.all_sprites_list.add(red_depot_b)
+        self.all_sprites_list.add(red_loading_station_a)
+        self.all_sprites_list.add(red_loading_station_b)
 
         self.all_sprites_list.add(self.robot1)
         self.all_sprites_list.add(self.robot2)
