@@ -25,9 +25,8 @@ from colors import *
 import pygame
 from robot import Robot
 from cargo_ship import Cargo_ship
-from rocket import Rocket
 from wall import Wall
-
+from truss import Truss
 
 #from hab_platform_level_0 import Hab_platform_level_0
 #from hab_platform_level_1 import Hab_platform_level_1
@@ -92,24 +91,42 @@ class Game:
 
         cargo_ship_1=Cargo_ship(cargo_ship_xo,cargo_ship_yo)
 
-        rocket_1_xo=229*in_
-        rocket_1_yo=min_y
+        # rocket_1_xo=229*in_
+        # rocket_1_yo=min_y
 
-        rocket_2_xo=rocket_1_xo
-        rocket_2_yo=max_y
+        # rocket_2_xo=rocket_1_xo
+        # rocket_2_yo=max_y
 
-        rocket_3_xo=max_x-rocket_1_xo
-        rocket_3_yo=rocket_1_yo
+        # rocket_3_xo=max_x-rocket_1_xo
+        # rocket_3_yo=rocket_1_yo
 
-        rocket_4_xo=rocket_3_xo
-        rocket_4_yo=rocket_2_yo
+        # rocket_4_xo=rocket_3_xo
+        # rocket_4_yo=rocket_2_yo
+        
+        # rocket_1=Rocket(rocket_1_xo,rocket_1_yo,BLUE)
+        # rocket_2=Rocket(rocket_2_xo,rocket_2_yo,BLUE,flip_y=True)
+        # rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
+        # rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,flip_y=True)
 
-        rocket_1=Rocket(rocket_1_xo,rocket_1_yo,BLUE)
-        rocket_2=Rocket(rocket_2_xo,rocket_2_yo,BLUE,flip_y=True)
-        rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
-        rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,flip_y=True)
+
+        truss_1_xo=229*in_
+        truss_1_yo=min_y
+
+        truss_2_xo=truss_1_xo
+        truss_2_yo=max_y
+
+        truss_3_xo=max_x-truss_1_xo
+        truss_3_yo=truss_1_yo
+
+        truss_4_xo=truss_3_xo
+        truss_4_yo=truss_2_yo
+
 
         
+        truss_1=Truss(truss_1_xo,truss_1_yo,45.0)
+        truss_2=Truss(truss_2_xo,truss_2_yo,45.0)
+        truss_3=Truss(truss_3_xo,truss_3_yo,45.0)
+        truss_4=Truss(truss_4_xo,truss_4_yo,45.0)
 
         
         # x=min_x
@@ -291,10 +308,16 @@ class Game:
         self.all_sprites_list.add(wall_4)
         
         self.all_sprites_list.add(cargo_ship_1)
-        self.all_sprites_list.add(rocket_1)
-        self.all_sprites_list.add(rocket_2)
-        self.all_sprites_list.add(rocket_3)
-        self.all_sprites_list.add(rocket_4)
+        # self.all_sprites_list.add(rocket_1)
+        # self.all_sprites_list.add(rocket_2)
+        # self.all_sprites_list.add(rocket_3)
+        # self.all_sprites_list.add(rocket_4)
+
+        self.all_sprites_list.add(truss_1)
+        self.all_sprites_list.add(truss_2)
+        self.all_sprites_list.add(truss_3)
+        self.all_sprites_list.add(truss_4)
+
         # self.all_sprites_list.add(blue_hab_platform_level_0)
         # self.all_sprites_list.add(blue_hab_platform_level_1)
         # self.all_sprites_list.add(blue_hab_platform_level_2a)
@@ -333,10 +356,15 @@ class Game:
         self.solid_sprites_list.add(wall_4)
 
         self.solid_sprites_list.add(cargo_ship_1)
-        self.solid_sprites_list.add(rocket_1)
-        self.solid_sprites_list.add(rocket_2)
-        self.solid_sprites_list.add(rocket_3)
-        self.solid_sprites_list.add(rocket_4)
+        # self.solid_sprites_list.add(rocket_1)
+        # self.solid_sprites_list.add(rocket_2)
+        # self.solid_sprites_list.add(rocket_3)
+        # self.solid_sprites_list.add(rocket_4)
+
+        self.solid_sprites_list.add(truss_1)
+        self.solid_sprites_list.add(truss_2)
+        self.solid_sprites_list.add(truss_3)
+        self.solid_sprites_list.add(truss_4)
 #        self.solid_sprites_list.add(blue_hab_platform_level_1)
         # self.solid_sprites_list.add(blue_hab_platform_level_2a)
         # self.solid_sprites_list.add(blue_hab_platform_level_2b)
