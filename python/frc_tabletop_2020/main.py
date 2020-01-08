@@ -50,8 +50,8 @@ class Game:
         #field_width=230*in_*3
         #field_height=133*in_*3
 
-        self.field_width=54*ft_;
-        self.field_height=27*ft_;
+        self.field_width=52*ft_+5.25*in_;
+        self.field_height=26*ft_+11.25*in_;
 
         self.hab_line_x=94.3*in_;
         # Call this function so the Pygame library can initialize itself
@@ -59,11 +59,11 @@ class Game:
 
         # Create an 800x600 sized screen
         #screen_size=[800,600]
-        screen_size=[self.field_width,int(self.field_height*1.20)]
+        screen_size=[int(self.field_width*1.10),int(self.field_height*1.20)]
         self.screen = pygame.display.set_mode(screen_size,pygame.RESIZABLE)
     
         # Set the title of the window
-        pygame.display.set_caption('Test')
+        pygame.display.set_caption('Infinite Recharge')
 
 
     
@@ -122,8 +122,8 @@ class Game:
         truss_3_xo=shield_generator_xo+width/2.0
         truss_3_yo=shield_generator_yo-height/2.0
 
-        truss_4_xo=shield_generator_xo+width/2.0
-        truss_4_yo=shield_generator_yo+height/2.0
+        truss_4_xo=shield_generator_xo-width/2.0
+        truss_4_yo=shield_generator_yo-height/2.0
 
 
         
@@ -132,32 +132,17 @@ class Game:
         truss_3=Truss(truss_3_xo,truss_3_yo,angle)
         truss_4=Truss(truss_4_xo,truss_4_yo,angle)
 
-
-        ############################################################################3
+      
+        #####################################################################3
         #
         #
-        # control_panel runs
+        # Trench runs
         #
         #
-        ############################################################################
-        
-        control_panel_red_xo=mid_x
-        control_panel_red_yo=min_y
+        #####################################################################
+        self.trench_height=4*ft_+7.5*in_
+        self.trench_width=18*ft_
 
-        control_panel_blue_xo=control_panel_red_xo
-        control_panel_blue_yo=max_y
-
-        control_panel_red=Control_panel(control_panel_red_xo,control_panel_red_yo,BLUE)
-        control_panel_blue=Control_panel(control_panel_blue_xo,control_panel_blue_yo,RED)
-
-        # ############################################################################3
-        # #
-        # #
-        # # Trench runs
-        # #
-        # #
-        # ############################################################################
-        
         # trench_run_red_xo=mid_x
         # trench_run_red_yo=min_y
 
@@ -166,6 +151,25 @@ class Game:
 
         # trench_run_red=Trench_run(trench_run_red_xo,trench_run_red_yo,BLUE)
         # trench_run_blue=Trench_run(trench_run_blue_xo,trench_run_blue_yo,RED)
+
+        ############################################################
+        #
+        #
+        # control_panel runs
+        #
+        #
+        #############################################################
+        self.control_panel_width=2*ft_+6*in_
+        
+        control_panel_red_xo=mid_x+self.trench_width/2.0-self.control_panel_width*2
+        control_panel_red_yo=min_y
+
+        control_panel_blue_xo=mid_x-self.trench_width/2.0+self.control_panel_width*2
+        control_panel_blue_yo=max_y-self.trench_height
+
+        control_panel_red=Control_panel(control_panel_red_xo,control_panel_red_yo,BLUE)
+        control_panel_blue=Control_panel(control_panel_blue_xo,control_panel_blue_yo,RED)
+
         # rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
         # rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,flip_y=True)
 
@@ -258,17 +262,6 @@ class Game:
         dy=max_y-min_y
         mid_x=max_x/2.0
         mid_y=max_y/2.0
-
-        # blue_x=blue_hab_platform_level_1.rect.centerx
-        # blue_y1=blue_hab_platform_level_1.rect.centery
-        # blue_y2=blue_y1+blue_hab_platform_level_1.rect.height/3
-        # blue_y3=blue_y1-blue_hab_platform_level_1.rect.height/3
-
-        # red_x=red_hab_platform_level_1.rect.centerx
-        # red_y1=red_hab_platform_level_1.rect.centery
-        # red_y2=red_y1+red_hab_platform_level_1.rect.height/3
-        # red_y3=red_y1-red_hab_platform_level_1.rect.height/3
-
         
         blue_x=self.initiation_line_blue_x
         blue_y1=mid_y-dy/3
@@ -328,12 +321,12 @@ class Game:
 
 
         # Create the robot object
-        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=key_map_1, is_mecanum=True,team_name=5115,width=10*in_,length=45*in_)
-        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=key_map_2, is_mecanum=False,team_name=493)
+        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=key_map_1, is_mecanum=True,team_name=5115,width=4*ft_,length=45*in_)
+        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=key_map_2, is_mecanum=False,width=5*ft_,team_name=493)
         self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=270,keymap=key_map_3, is_mecanum=False,team_name=503)
 
 
-        self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=key_map_4,is_mecanum=True,team_name=3361)
+        self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=key_map_4,is_mecanum=True,team_name=3361,width=5*ft_)
         self.robot5 = Robot(red_x, red_y2,RED2,angle=90,keymap=key_map_5,is_mecanum=False,team_name=3258)
         self.robot6 = Robot(red_x, red_y3,RED3,angle=90,keymap=key_map_6,is_mecanum=False,team_name=2106)
 
@@ -490,8 +483,7 @@ class Game:
 
     def draw_trench_runs(self):
 
-        height=4*ft_+7.5*in_
-        width=18*ft_
+       
         thickness=5
         
         max_x=self.field_width;
@@ -502,11 +494,13 @@ class Game:
         mid_x=max_x/2.0
         mid_y=max_y/2.0
 
-        trench_run_red_xo=mid_x-width/2
+        width=self.trench_width
+        height=self.trench_height
+        trench_run_red_xo=mid_x-self.trench_width/2
         trench_run_red_yo=min_y
 
         trench_run_blue_xo=trench_run_red_xo
-        trench_run_blue_yo=max_y-height
+        trench_run_blue_yo=max_y-self.trench_height
 
         #trench_run_red=Trench_run(trench_run_red_xo,trench_run_red_yo,BLUE)
         #trench_run_blue=Trench_run(trench_run_blue_xo,trench_run_blue_yo,RED)

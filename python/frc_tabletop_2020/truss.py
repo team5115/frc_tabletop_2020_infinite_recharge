@@ -17,7 +17,7 @@ class Truss(pygame.sprite.Sprite):
         super(Truss,self).__init__()
 
         self.verbosity=0
-        use_png=True
+        use_png=False
         width=12*in_
         height=12*in_
 

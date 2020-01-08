@@ -19,20 +19,29 @@ class Shield_generator(pygame.sprite.Sprite):
         self.verbosity=0
 
         angle=22.5
+        #angle=0
         width=14*ft_+0.75*in_
         height=13*ft_+1.5*in_
 
         width=int(width)
         height=int(height)
 
-        if True:
+        use_png=True
+        
+        if use_png:
             picture = pygame.image.load('./resources/shield_generator.png')
+            picture=pygame.transform.scale(picture, (width,height))
             picture= pygame.transform.rotate(picture,angle)
-            self.image=pygame.transform.scale(picture, (width,height))
-        else:        
-            self.image = pygame.Surface((width,height), pygame.SRCALPHA)
+            self.image=picture
+
+        else:
+            picture=pygame.Surface((width,height), pygame.SRCALPHA)
             color=GREEN
-            self.image.fill(color)
+            picture.fill(color)
+            picture= pygame.transform.rotate(picture,angle)
+            self.image = picture
+
+
 
 
         self.image_original=self.image

@@ -18,8 +18,8 @@ class Control_panel(pygame.sprite.Sprite):
 
         self.verbosity=0
 
-        width=4*ft_+8*in_
-        height=2*ft_+6*in_
+        height=4*ft_+8*in_
+        width=2*ft_+6*in_
 
         width=int(width)
         height=int(height)
@@ -27,9 +27,9 @@ class Control_panel(pygame.sprite.Sprite):
         if True:
             picture = pygame.image.load('./resources/control_panel.png')
                 
-            if not (flip_y):
-                angle=180
-                picture= pygame.transform.rotate(picture,angle)
+            #if not (flip_y):
+            #    angle=180
+            #    picture= pygame.transform.rotate(picture,angle)
             self.image=pygame.transform.scale(picture, (width,height))
         else:        
             self.image = pygame.Surface((width,height), pygame.SRCALPHA)
