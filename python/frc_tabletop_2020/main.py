@@ -21,6 +21,7 @@ version: 2
 import pygame, sys
 from pygame.locals import *
 from colors import *
+import rotation_utils
 
 import pygame
 from robot import Robot
@@ -40,6 +41,7 @@ from loading_station import LoadingStation
 
 from colors import *
 from units import *
+from pygame.math import Vector2
 
 
 class Game:
@@ -88,49 +90,73 @@ class Game:
         wall_3=Wall(min_x,min_y,width=wall_thickness,height=self.field_height,color=BLACK)
         wall_4=Wall(max_x,min_y,width=wall_thickness,height=self.field_height,color=BLACK)
 
-#        cargo_ship_xo=mid_x
-#        cargo_ship_yo=mid_y
+        #####################################################################3
+        #
+        #
+        # Shield Generator
+        #
+        #
+        #####################################################################
 
-#        cargo_ship_1=Cargo_ship(cargo_ship_xo,cargo_ship_yo)
 
+        angle=22.5
+        #angle=0
         shield_generator_xo=mid_x
         shield_generator_yo=mid_y
 
-        shield_generator_1=Shield_generator(shield_generator_xo,shield_generator_yo)
+        shield_generator_1=Shield_generator(shield_generator_xo,shield_generator_yo,angle)
 
-
+        #####################################################################3
+        #
+        #
+        # Trusses
+        #
+        #
+        #####################################################################
+     
 
      
-        angle=22.5
-        width=14*ft_+0.75*in_
-        height=13*ft_+1.5*in_
 
+        sg_width=14*ft_+0.75*in_
+        sg_height=13*ft_+1.5*in_
+
+        truss_width=12*in_;
+        
         xo=shield_generator_xo
         yo=shield_generator_yo
-        dx=width
-        dy=height
+        dx=sg_width/2.0-truss_width/2.0
+        dy1=sg_height/2.0-truss_width
+        dy2=sg_height/2.0
+
+
+        truss_origin=Vector2(xo,yo)
+        
+        truss_1_xo=shield_generator_xo-dx
+        truss_1_yo=shield_generator_yo+dy1
+        truss_1_r=Vector2(truss_1_xo,truss_1_yo)
+        truss_1_r=rotation_utils.rotate_vector(truss_1_r,truss_origin,-angle)
+        
+        truss_2_xo=shield_generator_xo+dx
+        truss_2_yo=shield_generator_yo+dy1
+        truss_2_r=Vector2(truss_2_xo,truss_2_yo)
+        truss_2_r=rotation_utils.rotate_vector(truss_2_r,truss_origin,-angle)
+
+        truss_3_xo=shield_generator_xo+dx
+        truss_3_yo=shield_generator_yo-dy2
+        truss_3_r=Vector2(truss_3_xo,truss_3_yo)
+        truss_3_r=rotation_utils.rotate_vector(truss_3_r,truss_origin,-angle)
+
+        truss_4_xo=shield_generator_xo-dx
+        truss_4_yo=shield_generator_yo-dy2
+        truss_4_r=Vector2(truss_4_xo,truss_4_yo)
+        truss_4_r=rotation_utils.rotate_vector(truss_4_r,truss_origin,-angle)
 
 
         
-        
-        truss_1_xo=shield_generator_xo-width/2.0
-        truss_1_yo=shield_generator_yo+height/2.0
-
-        truss_2_xo=shield_generator_xo+width/2.0
-        truss_2_yo=shield_generator_yo+height/2.0
-
-        truss_3_xo=shield_generator_xo+width/2.0
-        truss_3_yo=shield_generator_yo-height/2.0
-
-        truss_4_xo=shield_generator_xo-width/2.0
-        truss_4_yo=shield_generator_yo-height/2.0
-
-
-        
-        truss_1=Truss(truss_1_xo,truss_1_yo,angle)
-        truss_2=Truss(truss_2_xo,truss_2_yo,angle)
-        truss_3=Truss(truss_3_xo,truss_3_yo,angle)
-        truss_4=Truss(truss_4_xo,truss_4_yo,angle)
+        truss_1=Truss(truss_1_r,angle,GREEN)
+        truss_2=Truss(truss_2_r,angle,GREEN)
+        truss_3=Truss(truss_3_r,angle,GREEN)
+        truss_4=Truss(truss_4_r,angle,GREEN)
 
       
         #####################################################################3
@@ -347,11 +373,7 @@ class Game:
         # self.all_sprites_list.add(rocket_3)
         # self.all_sprites_list.add(rocket_4)
 
-        self.all_sprites_list.add(truss_1)
-        self.all_sprites_list.add(truss_2)
-        self.all_sprites_list.add(truss_3)
-        self.all_sprites_list.add(truss_4)
-
+     
        # self.all_sprites_list.add(trench_run_red)
        # self.all_sprites_list.add(trench_run_blue)
 
@@ -359,6 +381,12 @@ class Game:
         self.all_sprites_list.add(control_panel_red)
 
 
+        self.all_sprites_list.add(truss_1)
+        self.all_sprites_list.add(truss_2)
+        self.all_sprites_list.add(truss_3)
+        self.all_sprites_list.add(truss_4)
+
+        
         # self.all_sprites_list.add(blue_hab_platform_level_0)
         # self.all_sprites_list.add(blue_hab_platform_level_1)
         # self.all_sprites_list.add(blue_hab_platform_level_2a)
@@ -501,22 +529,13 @@ class Game:
 
         trench_run_blue_xo=trench_run_red_xo
         trench_run_blue_yo=max_y-self.trench_height
-
-        #trench_run_red=Trench_run(trench_run_red_xo,trench_run_red_yo,BLUE)
-        #trench_run_blue=Trench_run(trench_run_blue_xo,trench_run_blue_yo,RED)
-     
+      
         x=trench_run_blue_xo
         y=trench_run_blue_yo
 
         pygame.draw.rect(self.screen, BLUE, (trench_run_blue_xo,trench_run_blue_yo,width,height), thickness)
         pygame.draw.rect(self.screen, RED, (trench_run_red_xo,trench_run_red_yo,width,height), thickness)
 
-        
-#        draws a rectangle
- #       (x,y,width,height) is a Python tuple
-  #      x,y are the coordinates of the upper left hand corner
-   #     width, height are the width and height of the rectangle
-    #    thickness is the thickness of the line. If it is zero, the rectangle is filled
         
     def redraw_screen(self):
 

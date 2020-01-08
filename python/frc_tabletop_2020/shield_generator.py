@@ -18,7 +18,7 @@ class Shield_generator(pygame.sprite.Sprite):
 
         self.verbosity=0
 
-        angle=22.5
+        #angle=22.5
         #angle=0
         width=14*ft_+0.75*in_
         height=13*ft_+1.5*in_

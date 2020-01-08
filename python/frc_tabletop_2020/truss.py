@@ -11,12 +11,14 @@ from pygame.math import Vector2
 #####################################################################
 class Truss(pygame.sprite.Sprite):
 
-    def __init__(self, x, y,angle=22.5):
+    def __init__(self, r,angle=22.5,color=GREEN):
 
         # Call the parent's constructor
         super(Truss,self).__init__()
 
         self.verbosity=0
+        x=r.x
+        y=r.y
         use_png=False
         width=12*in_
         height=12*in_
@@ -26,12 +28,15 @@ class Truss(pygame.sprite.Sprite):
 
         if use_png:
             picture = pygame.image.load('./resources/truss.png')
+            picture=pygame.transform.scale(picture, (width,height))
             picture= pygame.transform.rotate(picture,angle)
-            self.image=pygame.transform.scale(picture, (width,height))
+            self.image=picture
         else:
-            color=GREEN
-            self.image = pygame.Surface((width,height), pygame.SRCALPHA)
-            self.image.fill(color)
+            picture=pygame.Surface((width,height), pygame.SRCALPHA)
+sssssssss            picture.fill(color)
+            picture= pygame.transform.rotate(picture,angle)
+            self.image = picture
+
 
         
         self.image_original=self.image
