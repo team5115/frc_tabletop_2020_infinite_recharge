@@ -33,7 +33,7 @@ class Truss(pygame.sprite.Sprite):
             self.image=picture
         else:
             picture=pygame.Surface((width,height), pygame.SRCALPHA)
-sssssssss            picture.fill(color)
+            picture.fill(color)
             picture= pygame.transform.rotate(picture,angle)
             self.image = picture
 
