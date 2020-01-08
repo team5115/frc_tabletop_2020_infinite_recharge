@@ -24,9 +24,12 @@ from colors import *
 
 import pygame
 from robot import Robot
-from cargo_ship import Cargo_ship
+#from cargo_ship import Cargo_ship
+from shield_generator import Shield_generator
 from wall import Wall
 from truss import Truss
+from trench_run import Trench_run
+from control_panel import Control_panel
 
 #from hab_platform_level_0 import Hab_platform_level_0
 #from hab_platform_level_1 import Hab_platform_level_1
@@ -82,53 +85,90 @@ class Game:
         
         wall_1=Wall(min_x,min_y,width=self.field_width,height=wall_thickness,color=BLACK)
         wall_2=Wall(min_x,max_y,width=self.field_width,height=wall_thickness,color=BLACK)
-
         wall_3=Wall(min_x,min_y,width=wall_thickness,height=self.field_height,color=BLACK)
         wall_4=Wall(max_x,min_y,width=wall_thickness,height=self.field_height,color=BLACK)
 
-        cargo_ship_xo=mid_x
-        cargo_ship_yo=mid_y
+#        cargo_ship_xo=mid_x
+#        cargo_ship_yo=mid_y
 
-        cargo_ship_1=Cargo_ship(cargo_ship_xo,cargo_ship_yo)
+#        cargo_ship_1=Cargo_ship(cargo_ship_xo,cargo_ship_yo)
 
-        # rocket_1_xo=229*in_
-        # rocket_1_yo=min_y
+        shield_generator_xo=mid_x
+        shield_generator_yo=mid_y
 
-        # rocket_2_xo=rocket_1_xo
-        # rocket_2_yo=max_y
+        shield_generator_1=Shield_generator(shield_generator_xo,shield_generator_yo)
 
-        # rocket_3_xo=max_x-rocket_1_xo
-        # rocket_3_yo=rocket_1_yo
 
-        # rocket_4_xo=rocket_3_xo
-        # rocket_4_yo=rocket_2_yo
+
+     
+        angle=22.5
+        width=14*ft_+0.75*in_
+        height=13*ft_+1.5*in_
+
+        xo=shield_generator_xo
+        yo=shield_generator_yo
+        dx=width
+        dy=height
+
+
         
-        # rocket_1=Rocket(rocket_1_xo,rocket_1_yo,BLUE)
-        # rocket_2=Rocket(rocket_2_xo,rocket_2_yo,BLUE,flip_y=True)
+        
+        truss_1_xo=shield_generator_xo-width/2.0
+        truss_1_yo=shield_generator_yo+height/2.0
+
+        truss_2_xo=shield_generator_xo+width/2.0
+        truss_2_yo=shield_generator_yo+height/2.0
+
+        truss_3_xo=shield_generator_xo+width/2.0
+        truss_3_yo=shield_generator_yo-height/2.0
+
+        truss_4_xo=shield_generator_xo+width/2.0
+        truss_4_yo=shield_generator_yo+height/2.0
+
+
+        
+        truss_1=Truss(truss_1_xo,truss_1_yo,angle)
+        truss_2=Truss(truss_2_xo,truss_2_yo,angle)
+        truss_3=Truss(truss_3_xo,truss_3_yo,angle)
+        truss_4=Truss(truss_4_xo,truss_4_yo,angle)
+
+
+        ############################################################################3
+        #
+        #
+        # control_panel runs
+        #
+        #
+        ############################################################################
+        
+        control_panel_red_xo=mid_x
+        control_panel_red_yo=min_y
+
+        control_panel_blue_xo=control_panel_red_xo
+        control_panel_blue_yo=max_y
+
+        control_panel_red=Control_panel(control_panel_red_xo,control_panel_red_yo,BLUE)
+        control_panel_blue=Control_panel(control_panel_blue_xo,control_panel_blue_yo,RED)
+
+        # ############################################################################3
+        # #
+        # #
+        # # Trench runs
+        # #
+        # #
+        # ############################################################################
+        
+        # trench_run_red_xo=mid_x
+        # trench_run_red_yo=min_y
+
+        # trench_run_blue_xo=trench_run_red_xo
+        # trench_run_blue_yo=max_y
+
+        # trench_run_red=Trench_run(trench_run_red_xo,trench_run_red_yo,BLUE)
+        # trench_run_blue=Trench_run(trench_run_blue_xo,trench_run_blue_yo,RED)
         # rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
         # rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,flip_y=True)
 
-
-        truss_1_xo=229*in_
-        truss_1_yo=min_y
-
-        truss_2_xo=truss_1_xo
-        truss_2_yo=max_y
-
-        truss_3_xo=max_x-truss_1_xo
-        truss_3_yo=truss_1_yo
-
-        truss_4_xo=truss_3_xo
-        truss_4_yo=truss_2_yo
-
-
-        
-        truss_1=Truss(truss_1_xo,truss_1_yo,45.0)
-        truss_2=Truss(truss_2_xo,truss_2_yo,45.0)
-        truss_3=Truss(truss_3_xo,truss_3_yo,45.0)
-        truss_4=Truss(truss_4_xo,truss_4_yo,45.0)
-
-        
         # x=min_x
         # y=mid_y        
         # blue_hab_platform_level_3=Hab_platform_level_3(x,y,BLUE_HAB3,flip_x=False)
@@ -307,7 +347,8 @@ class Game:
         self.all_sprites_list.add(wall_3)
         self.all_sprites_list.add(wall_4)
         
-        self.all_sprites_list.add(cargo_ship_1)
+#        self.all_sprites_list.add(cargo_ship_1)
+        self.all_sprites_list.add(shield_generator_1)
         # self.all_sprites_list.add(rocket_1)
         # self.all_sprites_list.add(rocket_2)
         # self.all_sprites_list.add(rocket_3)
@@ -317,6 +358,13 @@ class Game:
         self.all_sprites_list.add(truss_2)
         self.all_sprites_list.add(truss_3)
         self.all_sprites_list.add(truss_4)
+
+       # self.all_sprites_list.add(trench_run_red)
+       # self.all_sprites_list.add(trench_run_blue)
+
+        self.all_sprites_list.add(control_panel_blue)
+        self.all_sprites_list.add(control_panel_red)
+
 
         # self.all_sprites_list.add(blue_hab_platform_level_0)
         # self.all_sprites_list.add(blue_hab_platform_level_1)
@@ -355,7 +403,7 @@ class Game:
         self.solid_sprites_list.add(wall_3)
         self.solid_sprites_list.add(wall_4)
 
-        self.solid_sprites_list.add(cargo_ship_1)
+#        self.solid_sprites_list.add(cargo_ship_1)
         # self.solid_sprites_list.add(rocket_1)
         # self.solid_sprites_list.add(rocket_2)
         # self.solid_sprites_list.add(rocket_3)
@@ -424,6 +472,57 @@ class Game:
         line_width=2*in_
 
         pygame.draw.line(self.screen, color, (min_x, y), (max_x, y), line_width)
+
+    def draw_rectangle(self,x1,y1,x2,y2,color):
+
+        
+        min_x=0
+        min_y=0
+        max_x=self.field_width;
+        max_y=self.field_height;
+
+        mid_x=max_x/2.0
+        mid_y=max_y/2.0
+       
+        line_width=2*in_
+
+        pygame.draw.line(self.screen, color, (min_x, y), (max_x, y), line_width)
+
+    def draw_trench_runs(self):
+
+        height=4*ft_+7.5*in_
+        width=18*ft_
+        thickness=5
+        
+        max_x=self.field_width;
+        max_y=self.field_height;
+
+        min_x=0
+        min_y=0
+        mid_x=max_x/2.0
+        mid_y=max_y/2.0
+
+        trench_run_red_xo=mid_x-width/2
+        trench_run_red_yo=min_y
+
+        trench_run_blue_xo=trench_run_red_xo
+        trench_run_blue_yo=max_y-height
+
+        #trench_run_red=Trench_run(trench_run_red_xo,trench_run_red_yo,BLUE)
+        #trench_run_blue=Trench_run(trench_run_blue_xo,trench_run_blue_yo,RED)
+     
+        x=trench_run_blue_xo
+        y=trench_run_blue_yo
+
+        pygame.draw.rect(self.screen, BLUE, (trench_run_blue_xo,trench_run_blue_yo,width,height), thickness)
+        pygame.draw.rect(self.screen, RED, (trench_run_red_xo,trench_run_red_yo,width,height), thickness)
+
+        
+#        draws a rectangle
+ #       (x,y,width,height) is a Python tuple
+  #      x,y are the coordinates of the upper left hand corner
+   #     width, height are the width and height of the rectangle
+    #    thickness is the thickness of the line. If it is zero, the rectangle is filled
         
     def redraw_screen(self):
 
@@ -449,6 +548,9 @@ class Game:
         self.draw_vertical_line(x=self.initiation_line_blue_x,color=BLUE)
         self.draw_vertical_line(x=self.initiation_line_red_x,color=RED)
 
+        self.draw_trench_runs()
+        
+       
         
     def run(self):
         d_angle=3
@@ -529,7 +631,7 @@ class Game:
             # Flip screen
             pygame.display.flip()
 
-            # Pause
+            # Frame Rate
             self.clock.tick(60)
 
             #if self.robot1.is_collided_with(self.robot2):
