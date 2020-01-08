@@ -10,8 +10,9 @@ Author: Joe Adams
  Email: joseph.s.adams@gmail.com
    URL: https://github.com/jsadams/frc_tabletop.git
 
-version: 2
+version: 3
 
+20/01/08 - updated for 2020
 19/01/11 - multiple keymaps now working
 
 
@@ -32,17 +33,21 @@ from truss import Truss
 from trench_run import Trench_run
 from control_panel import Control_panel
 
+import loading_bay
+import power_port
+import field
 #from hab_platform_level_0 import Hab_platform_level_0
 #from hab_platform_level_1 import Hab_platform_level_1
 #from hab_platform_level_2 import Hab_platform_level_2
 #from hab_platform_level_3 import Hab_platform_level_3
-from depot import Depot
-from loading_station import LoadingStation
+#from depot import Depot
+#from loading_station import LoadingStation
 
 from colors import *
 from units import *
 from pygame.math import Vector2
 
+import keymaps
 
 class Game:
 
@@ -51,7 +56,11 @@ class Game:
         ##############################################
         #field_width=230*in_*3
         #field_height=133*in_*3
-
+        left_margin=50
+        right_margin=50
+        bottom_margin=50
+        top_margin=50
+        
         self.field_width=52*ft_+5.25*in_;
         self.field_height=26*ft_+11.25*in_;
 
@@ -61,34 +70,37 @@ class Game:
 
         # Create an 800x600 sized screen
         #screen_size=[800,600]
-        screen_size=[int(self.field_width*1.10),int(self.field_height*1.20)]
+
+        
+        screen_size=[int(field.screen_width*1.10),int(field.screen_height*1.10)]
         self.screen = pygame.display.set_mode(screen_size,pygame.RESIZABLE)
     
         # Set the title of the window
         pygame.display.set_caption('Infinite Recharge')
 
 
-    
+     
+
+        # min_x=left_margin
+        # min_y=top_margin
+
         
-        
-        max_x=self.field_width;
-        max_y=self.field_height;
+        # field.max_x=self.field_width+min_x
+        # field.max_y=self.field_height+min_y
 
-        min_x=0
-        min_y=0
-        mid_x=max_x/2.0
-        mid_y=max_y/2.0
+        # field.mid_x=self.field_width/2.0+min_x
+        # field.mid_y=self.field_height/2.0+min_y
 
 
-        self.initiation_line_blue_x=min_x+10*ft_;
-        self.initiation_line_red_x=max_x-10*ft_;
+        self.initiation_line_blue_x=field.min_x+10*ft_;
+        self.initiation_line_red_x=field.max_x-10*ft_;
         
         wall_thickness=1*in_
         
-        wall_1=Wall(min_x,min_y,width=self.field_width,height=wall_thickness,color=BLACK)
-        wall_2=Wall(min_x,max_y,width=self.field_width,height=wall_thickness,color=BLACK)
-        wall_3=Wall(min_x,min_y,width=wall_thickness,height=self.field_height,color=BLACK)
-        wall_4=Wall(max_x,min_y,width=wall_thickness,height=self.field_height,color=BLACK)
+        wall_1=Wall(field.min_x,field.min_y,width=self.field_width,height=wall_thickness,color=BLACK)
+        wall_2=Wall(field.min_x,field.max_y,width=self.field_width,height=wall_thickness,color=BLACK)
+        wall_3=Wall(field.min_x,field.min_y,width=wall_thickness,height=self.field_height,color=BLACK)
+        wall_4=Wall(field.max_x,field.min_y,width=wall_thickness,height=self.field_height,color=BLACK)
 
         #####################################################################3
         #
@@ -101,8 +113,8 @@ class Game:
 
         angle=22.5
         #angle=0
-        shield_generator_xo=mid_x
-        shield_generator_yo=mid_y
+        shield_generator_xo=field.mid_x
+        shield_generator_yo=field.mid_y
 
         shield_generator_1=Shield_generator(shield_generator_xo,shield_generator_yo,angle)
 
@@ -162,18 +174,18 @@ class Game:
         #####################################################################3
         #
         #
-        # Trench runs
+        # Trench runs 
         #
         #
         #####################################################################
         self.trench_height=4*ft_+7.5*in_
         self.trench_width=18*ft_
 
-        # trench_run_red_xo=mid_x
-        # trench_run_red_yo=min_y
+        # trench_run_red_xo=field.mid_x
+        # trench_run_red_yo=field.min_y
 
         # trench_run_blue_xo=trench_run_red_xo
-        # trench_run_blue_yo=max_y
+        # trench_run_blue_yo=field.max_y
 
         # trench_run_red=Trench_run(trench_run_red_xo,trench_run_red_yo,BLUE)
         # trench_run_blue=Trench_run(trench_run_blue_xo,trench_run_blue_yo,RED)
@@ -181,118 +193,81 @@ class Game:
         ############################################################
         #
         #
-        # control_panel runs
+        # control_panel
         #
         #
         #############################################################
         self.control_panel_width=2*ft_+6*in_
         
-        control_panel_red_xo=mid_x+self.trench_width/2.0-self.control_panel_width*2
-        control_panel_red_yo=min_y
+        control_panel_red_xo=field.mid_x+self.trench_width/2.0-self.control_panel_width*2
+        control_panel_red_yo=field.min_y
 
-        control_panel_blue_xo=mid_x-self.trench_width/2.0+self.control_panel_width*2
-        control_panel_blue_yo=max_y-self.trench_height
+        control_panel_blue_xo=field.mid_x-self.trench_width/2.0+self.control_panel_width*2
+        control_panel_blue_yo=field.max_y-self.trench_height
 
         control_panel_red=Control_panel(control_panel_red_xo,control_panel_red_yo,BLUE)
         control_panel_blue=Control_panel(control_panel_blue_xo,control_panel_blue_yo,RED)
 
-        # rocket_3=Rocket(rocket_3_xo,rocket_3_yo,RED)
-        # rocket_4=Rocket(rocket_4_xo,rocket_4_yo,RED,flip_y=True)
+     
 
-        # x=min_x
-        # y=mid_y        
-        # blue_hab_platform_level_3=Hab_platform_level_3(x,y,BLUE_HAB3,flip_x=False)
-
-        # x=min_x
-        # y=blue_hab_platform_level_3.rect.bottom
-        # blue_hab_platform_level_2b=Hab_platform_level_2(x,y,BLUE_HAB2,flip_x=False,flip_y=False)
-
-        # x=min_x
-        # y=blue_hab_platform_level_3.rect.top
-        # blue_hab_platform_level_2a=Hab_platform_level_2(x,y,BLUE_HAB2,flip_x=False,flip_y=True)
-
-        # x=blue_hab_platform_level_3.rect.right
-        # y=mid_y
-        # blue_hab_platform_level_1=Hab_platform_level_1(x,y,BLUE_HAB1,flip_x=False)
-
-        # x=blue_hab_platform_level_3.rect.right
-        # y=mid_y
-        # blue_hab_platform_level_0=Hab_platform_level_0(x,y,BLUE_HAB0,flip_x=False)
-
-        # x=min_x
-        # y=blue_hab_platform_level_2b.rect.bottom
-        # blue_depot_a=Depot(x,y,ORANGE,flip_x=False,flip_y=False)
-
-        # x=min_x
-        # y=blue_hab_platform_level_2a.rect.top
-        # blue_depot_b=Depot(x,y,ORANGE,flip_x=False,flip_y=True)
-
-        # dy_loading_station=27*in_
-        # x=min_x
-        # y=min_y+dy_loading_station
-        # blue_loading_station_a=LoadingStation(x,y,ORANGE,flip_x=False,flip_y=False)
-
-        # x=min_x
-        # y=max_y-dy_loading_station
-        # blue_loading_station_b=LoadingStation(x,y,ORANGE,flip_x=False,flip_y=True)
-
-        
-
-        # x=max_x
-        # y=mid_y        
-        # red_hab_platform_level_3=Hab_platform_level_3(x,y,RED_HAB3,flip_x=True)
-
-        # x=max_x
-        # y=red_hab_platform_level_3.rect.bottom
-        # red_hab_platform_level_2b=Hab_platform_level_2(x,y,RED_HAB2,flip_x=True,flip_y=False)
-
-        # x=max_x
-        # y=red_hab_platform_level_3.rect.top
-        # red_hab_platform_level_2a=Hab_platform_level_2(x,y,RED_HAB2,flip_x=True,flip_y=True)
-        
-        # x=red_hab_platform_level_3.rect.left
-        # y=mid_y        
-        # red_hab_platform_level_1=Hab_platform_level_1(x,y,RED_HAB1,flip_x=True)
-
-        # x=red_hab_platform_level_3.rect.left
-        # y=mid_y        
-        # red_hab_platform_level_0=Hab_platform_level_0(x,y,RED_HAB0,flip_x=True)
-
-        # x=max_x
-        # y=red_hab_platform_level_2b.rect.bottom
-        # red_depot_a=Depot(x,y,ORANGE,flip_x=True,flip_y=False)
-
-        # x=max_x
-        # y=red_hab_platform_level_2a.rect.top
-        # red_depot_b=Depot(x,y,ORANGE,flip_x=True,flip_y=True)
+        ############################################################
+        #
+        #
+        # loading bays 
+        #
+        #
+        #############################################################
 
 
-        # dy_loading_station=27*in_
-        # x=max_x
-        # y=min_y+dy_loading_station
-        # red_loading_station_a=LoadingStation(x,y,ORANGE,flip_x=True,flip_y=False)
+        loading_bay_red_xo=field.min_x-loading_bay.WIDTH
+        loading_bay_red_yo=field.min_y+5*ft_        
+        loading_bay_origin_red=Vector2(loading_bay_red_xo,loading_bay_red_yo)
 
-        # x=max_x
-        # y=max_y-dy_loading_station
-        # red_loading_station_b=LoadingStation(x,y,ORANGE,flip_x=True,flip_y=True)
+        loading_bay_blue_xo=field.max_x
+        loading_bay_blue_yo=field.max_y-5*ft_
+        loading_bay_origin_blue=Vector2(loading_bay_blue_xo,loading_bay_blue_yo)
+
+        loading_bay_red=loading_bay.Loading_bay(loading_bay_origin_red,RED)
+        loading_bay_blue=loading_bay.Loading_bay(loading_bay_origin_blue,BLUE)
+
+        ############################################################
+        #
+        #
+        # power port 
+        #
+        #
+        #############################################################
+
+        power_port_offset=7*ft_
+        power_port_red_xo=field.max_x
+        power_port_red_yo=field.max_y-power_port_offset        
+        power_port_origin_red=Vector2(power_port_red_xo,power_port_red_yo)
+
+        power_port_blue_xo=field.min_x-power_port.WIDTH
+        power_port_blue_yo=field.min_y-power_port_offset
+        power_port_origin_blue=Vector2(power_port_blue_xo,power_port_blue_yo)
+
+        power_port_red=power_port.Power_port(power_port_origin_red,RED)
+        power_port_blue=power_port.Power_port(power_port_origin_blue,BLUE)
+
 
         
         ############################################
         #  Robot starts
         #
 
-        x=min_x
-        y=mid_y
+        #x=field.min_x
+        #y=field.mid_y
 
-        min_x=0
-        dy=max_y-min_y
-        mid_x=max_x/2.0
-        mid_y=max_y/2.0
+        #field.min_x=0
+        dy=field.max_y-field.min_y
+        # field.mid_x=field.max_x/2.0
+        # field.mid_y=field.max_y/2.0
         
         blue_x=self.initiation_line_blue_x
-        blue_y1=mid_y-dy/3
-        blue_y2=mid_y
-        blue_y3=mid_y+dy/3
+        blue_y1=field.mid_y-dy/3
+        blue_y2=field.mid_y
+        blue_y3=field.mid_y+dy/3
 
         red_x=self.initiation_line_red_x
         red_y1=blue_y1
@@ -301,60 +276,17 @@ class Game:
 
        
         
-        key_map_1={ pygame.K_w: "forward",
-                    pygame.K_s: "backward",
-                    pygame.K_a: "strafe_left", 
-                    pygame.K_d: "strafe_right",
-                    pygame.K_e: "rotate_right",
-                    pygame.K_q:  "rotate_left" }
-
-
-        key_map_2={ pygame.K_t: "forward",
-                    pygame.K_g: "backward",
-                    pygame.K_f: "strafe_left", 
-                    pygame.K_h: "strafe_right",
-                    pygame.K_r: "rotate_right",
-                    pygame.K_y:  "rotate_left" }
-
-        key_map_3={ pygame.K_i: "forward",
-                    pygame.K_k: "backward",
-                    pygame.K_j: "strafe_left", 
-                    pygame.K_l: "strafe_right",
-                    pygame.K_u: "rotate_right",
-                    pygame.K_o:  "rotate_left" }
-
-
-        key_map_4={ pygame.K_UP: "forward",
-                    pygame.K_DOWN: "backward",
-                    pygame.K_LEFT: "strafe_left", 
-                    pygame.K_RIGHT: "strafe_right",
-                    pygame.K_PAGEUP: "rotate_right",
-                    pygame.K_PAGEDOWN:  "rotate_left" }
-
-        key_map_5={ pygame.K_KP0: "forward",
-                    pygame.K_KP1: "backward",
-                    pygame.K_KP2: "strafe_left", 
-                    pygame.K_KP3: "strafe_right",
-                    pygame.K_KP4:  "rotate_right",
-                    pygame.K_KP5: "rotate_left" }
-
-        key_map_6={ pygame.K_0: "forward",
-                    pygame.K_1: "backward",
-                    pygame.K_2: "strafe_left", 
-                    pygame.K_3: "strafe_right",
-                    pygame.K_4: "rotate_right",
-                    pygame.K_5: "rotate_left" }
-
+      
 
         # Create the robot object
-        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=key_map_1, is_mecanum=True,team_name=5115,width=4*ft_,length=45*in_)
-        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=key_map_2, is_mecanum=False,width=5*ft_,team_name=493)
-        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=270,keymap=key_map_3, is_mecanum=False,team_name=503)
+        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=keymaps.key_map_1, is_mecanum=True,team_name=5115,width=4*ft_,length=45*in_)
+        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=keymaps.key_map_2, is_mecanum=False,width=5*ft_,team_name=493)
+        self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=270,keymap=keymaps.key_map_3, is_mecanum=False,team_name=503)
 
 
-        self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=key_map_4,is_mecanum=True,team_name=3361,width=5*ft_)
-        self.robot5 = Robot(red_x, red_y2,RED2,angle=90,keymap=key_map_5,is_mecanum=False,team_name=3258)
-        self.robot6 = Robot(red_x, red_y3,RED3,angle=90,keymap=key_map_6,is_mecanum=False,team_name=2106)
+        self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=keymaps.key_map_4,is_mecanum=True,team_name=3361,width=5*ft_)
+        self.robot5 = Robot(red_x, red_y2,RED2,angle=90,keymap=keymaps.key_map_5,is_mecanum=False,team_name=3258)
+        self.robot6 = Robot(red_x, red_y3,RED3,angle=90,keymap=keymaps.key_map_6,is_mecanum=False,team_name=2106)
 
 
 #        self.all_sprites_list = pygame.sprite.Group()
@@ -379,6 +311,12 @@ class Game:
 
         self.all_sprites_list.add(control_panel_blue)
         self.all_sprites_list.add(control_panel_red)
+
+        self.all_sprites_list.add(loading_bay_blue)
+        self.all_sprites_list.add(loading_bay_red)
+
+        self.all_sprites_list.add(power_port_blue)
+        self.all_sprites_list.add(power_port_red)
 
 
         self.all_sprites_list.add(truss_1)
@@ -468,67 +406,38 @@ class Game:
         self.clock = pygame.time.Clock()
 
     def draw_vertical_line(self,x,color):
-        min_x=0
-        min_y=0
-        max_x=self.field_width;
-        max_y=self.field_height;
-
-        mid_x=max_x/2.0
-        mid_y=max_y/2.0
 
         line_width=2*in_
 
-        pygame.draw.line(self.screen, color, (x, min_y), (x, max_y), line_width)
+        pygame.draw.line(self.screen, color, (x, field.min_y), (x, field.max_y), line_width)
 
     def draw_horizontal_line(self,y,color):
 
-        min_x=0
-        min_y=0
-        max_x=self.field_width;
-        max_y=self.field_height;
-
-        mid_x=max_x/2.0
-        mid_y=max_y/2.0
        
         line_width=2*in_
 
-        pygame.draw.line(self.screen, color, (min_x, y), (max_x, y), line_width)
+        pygame.draw.line(self.screen, color, (field.min_x, y), (field.max_x, y), line_width)
 
     def draw_rectangle(self,x1,y1,x2,y2,color):
 
         
-        min_x=0
-        min_y=0
-        max_x=self.field_width;
-        max_y=self.field_height;
-
-        mid_x=max_x/2.0
-        mid_y=max_y/2.0
-       
         line_width=2*in_
 
-        pygame.draw.line(self.screen, color, (min_x, y), (max_x, y), line_width)
+        pygame.draw.line(self.screen, color, (field.min_x, y), (field.max_x, y), line_width)
 
     def draw_trench_runs(self):
 
        
         thickness=5
         
-        max_x=self.field_width;
-        max_y=self.field_height;
-
-        min_x=0
-        min_y=0
-        mid_x=max_x/2.0
-        mid_y=max_y/2.0
 
         width=self.trench_width
         height=self.trench_height
-        trench_run_red_xo=mid_x-self.trench_width/2
-        trench_run_red_yo=min_y
+        trench_run_red_xo=field.mid_x-self.trench_width/2
+        trench_run_red_yo=field.min_y
 
         trench_run_blue_xo=trench_run_red_xo
-        trench_run_blue_yo=max_y-self.trench_height
+        trench_run_blue_yo=field.max_y-self.trench_height
       
         x=trench_run_blue_xo
         y=trench_run_blue_yo
@@ -537,23 +446,16 @@ class Game:
         pygame.draw.rect(self.screen, RED, (trench_run_red_xo,trench_run_red_yo,width,height), thickness)
 
         
-    def redraw_screen(self):
-
-        min_x=0
-        min_y=0
-        max_x=self.field_width;
-        max_y=self.field_height;
-        mid_x=max_x/2.0
-        mid_y=max_y/2.0
+    def redraw_screen(self):     
 
         line_width=2*in_
 
         # draw on the surface object
         self.screen.fill(WHITE)
-        pygame.draw.polygon(self.screen, GREY, ((min_x,min_y), (max_x, min_y), (max_x,max_y), (min_x,max_y), (0, 0)))
+        pygame.draw.polygon(self.screen, GREY, ((field.min_x,field.min_y), (field.max_x, field.min_y), (field.max_x,field.max_y), (field.min_x,field.max_y), (field.min_x, field.min_y)))
         
 
-        self.draw_horizontal_line(y=mid_y,color=YELLOW)
+        self.draw_horizontal_line(y=field.mid_y,color=YELLOW)
 
 
      
