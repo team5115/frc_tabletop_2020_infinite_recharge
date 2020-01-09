@@ -227,12 +227,12 @@ class Game:
         power_port_red_xo=field.min_x-power_port.WIDTH
         power_port_red_yo=field.min_y+power_port_offset-power_port.HEIGHT
         power_port_origin_red=Vector2(power_port_red_xo,power_port_red_yo)
-        power_port_red=power_port.Power_port(power_port_origin_red,RED)
+        self.power_port_red=power_port.Power_port(power_port_origin_red,RED)
 
         power_port_blue_xo=field.max_x
         power_port_blue_yo=field.max_y-power_port_offset        
         power_port_origin_blue=Vector2(power_port_blue_xo,power_port_blue_yo)
-        power_port_blue=power_port.Power_port(power_port_origin_blue,BLUE)
+        self.power_port_blue=power_port.Power_port(power_port_origin_blue,BLUE,True)
 
         
         ############################################
@@ -298,8 +298,8 @@ class Game:
         self.all_sprites_list.add(self.loading_bay_blue)
         self.all_sprites_list.add(self.loading_bay_red)
 
-        self.all_sprites_list.add(power_port_blue)
-        self.all_sprites_list.add(power_port_red)
+        self.all_sprites_list.add(self.power_port_blue)
+        self.all_sprites_list.add(self.power_port_red)
 
 
         self.all_sprites_list.add(truss_1)
@@ -409,6 +409,8 @@ class Game:
         field.draw_trench_runs(self.screen)
         self.loading_bay_blue.draw_triangle(self.screen)
         self.loading_bay_red.draw_triangle(self.screen)        
+        self.power_port_red.draw_triangle(self.screen)
+        self.power_port_blue.draw_triangle(self.screen)        
        
         
     def run(self):

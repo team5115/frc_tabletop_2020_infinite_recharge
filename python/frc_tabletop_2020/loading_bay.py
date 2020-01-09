@@ -23,7 +23,7 @@ class Loading_bay(sprite_rect.Sprite_rect):
         if flip_y:
             angle=180
             
-        use_png=False
+        use_png=True
         png_file='./resources/loading_bay.png'
         
         # Call the parent's constructor
@@ -34,26 +34,23 @@ class Loading_bay(sprite_rect.Sprite_rect):
         self.flip_y=flip_y
 
     def draw_triangle(self,screen):
-        triangle_width=1*ft_
+        triangle_width=2*ft_+6*in_
 
         if self.flip_y:
             x1=self.rect.left
-            y1=self.rect.top
-            
-            x3=x1
-            y3=self.rect.bottom
-        
-            x2=x1-triangle_width
-            y2=(y3-y1)/2+y1
+            x2=x1-triangle_width        
         else:
             x1=self.rect.right
-            y1=self.rect.top
-        
-            x3=x1
-            y3=self.rect.bottom
-            
             x2=x1+triangle_width
-            y2=(y3-y1)/2+y1
+
+
+        y1=self.rect.top
+        
+        x3=x1
+        y3=self.rect.bottom
+        
+        
+        y2=(y3-y1)/2+y1
 
 
 
