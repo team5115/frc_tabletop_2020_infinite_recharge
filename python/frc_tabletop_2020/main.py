@@ -202,16 +202,16 @@ class Game:
         #
         #############################################################
 
-
-        loading_bay_red_xo=field.min_x-loading_bay.WIDTH
-        loading_bay_red_yo=field.min_y+5*ft_        
+        loading_bay_offset=5*ft_
+        
+        loading_bay_red_xo=field.max_x+loading_bay.WIDTH/2
+        loading_bay_red_yo=field.min_y+loading_bay_offset
         loading_bay_origin_red=Vector2(loading_bay_red_xo,loading_bay_red_yo)
+        loading_bay_red=loading_bay.Loading_bay(loading_bay_origin_red,RED,True)
 
-        loading_bay_blue_xo=field.max_x
-        loading_bay_blue_yo=field.max_y-5*ft_
+        loading_bay_blue_xo=field.min_x-loading_bay.WIDTH/2
+        loading_bay_blue_yo=field.max_y-loading_bay_offset-loading_bay.HEIGHT       
         loading_bay_origin_blue=Vector2(loading_bay_blue_xo,loading_bay_blue_yo)
-
-        loading_bay_red=loading_bay.Loading_bay(loading_bay_origin_red,RED)
         loading_bay_blue=loading_bay.Loading_bay(loading_bay_origin_blue,BLUE)
 
         ############################################################

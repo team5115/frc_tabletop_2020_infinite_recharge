@@ -6,7 +6,7 @@ import sprite_rect
 from pygame.math import Vector2
 
 WIDTH=2*ft_
-HEIGHT=2*ft_+0.25*in_
+HEIGHT=2*ft_+10*in_
 
  
 #####################################################################
