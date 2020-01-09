@@ -14,7 +14,7 @@ def load_image(name, colorkey=None):
     try:
         image = pygame.image.load(fullname)
     except pygame.error:
-        print ('Cannot load image:', fullname)
+        print(('Cannot load image:', fullname))
         raise SystemExit(str(geterror()))
     image = image.convert()
     if colorkey is not None:
@@ -32,6 +32,6 @@ def load_sound(name):
     try:
         sound = pygame.mixer.Sound(fullname)
     except pygame.error:
-        print ('Cannot load sound: %s' % fullname)
+        print(('Cannot load sound: %s' % fullname))
         raise SystemExit(str(geterror()))
     return sound

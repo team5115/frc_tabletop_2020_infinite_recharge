@@ -132,7 +132,7 @@ class Robot(pygame.sprite.Sprite):
         #print "pygame.K_w=", type(pygame.K_w), "value=",pygame.K_w
 
         
-        if (self.keymap.has_key(key)):
+        if (key in self.keymap):
             value=self.keymap[key]
         else:
            # print "selfkeymap doesn't have the key"
