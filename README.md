@@ -6,7 +6,7 @@ Team 5115 - Knight Riders
 
 This is a top down 2D simulator
 
-Currently using pygame with python2
+Currently using pygame with python3
 
 Run python main.py
 
