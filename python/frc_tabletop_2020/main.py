@@ -78,6 +78,10 @@ class Game:
         # Set the title of the window
         pygame.display.set_caption('Infinite Recharge')
 
+
+        self.font = pygame.font.SysFont('Arial', 24)
+      
+        
         
         wall_thickness=1*in_
         
@@ -346,45 +350,45 @@ class Game:
         
         self.clock = pygame.time.Clock()
 
-    def draw_vertical_line(self,x,color):
+    # def draw_vertical_line(self,x,color):
 
-        line_width=2*in_
+    #     line_width=2*in_
 
-        pygame.draw.line(self.screen, color, (x, field.min_y), (x, field.max_y), line_width)
+    #     pygame.draw.line(self.screen, color, (x, field.min_y), (x, field.max_y), line_width)
 
-    def draw_horizontal_line(self,y,color):
-
-       
-        line_width=2*in_
-
-        pygame.draw.line(self.screen, color, (field.min_x, y), (field.max_x, y), line_width)
-
-    def draw_rectangle(self,x1,y1,x2,y2,color):
-
-        
-        line_width=2*in_
-
-        pygame.draw.line(self.screen, color, (field.min_x, y), (field.max_x, y), line_width)
-
-    def draw_trench_runs(self):
+    # def draw_horizontal_line(self,y,color):
 
        
-        thickness=5
+    #     line_width=2*in_
+
+    #     pygame.draw.line(self.screen, color, (field.min_x, y), (field.max_x, y), line_width)
+
+    # def draw_rectangle(self,x1,y1,x2,y2,color):
+
+        
+    #     line_width=2*in_
+
+    #     pygame.draw.line(self.screen, color, (field.min_x, y), (field.max_x, y), line_width)
+
+    # def draw_trench_runs(self):
+
+       
+    #     thickness=5
         
 
-        width=self.trench_width
-        height=self.trench_height
-        trench_run_red_xo=field.mid_x-self.trench_width/2
-        trench_run_red_yo=field.min_y
+    #     width=self.trench_width
+    #     height=self.trench_height
+    #     trench_run_red_xo=field.mid_x-self.trench_width/2
+    #     trench_run_red_yo=field.min_y
 
-        trench_run_blue_xo=trench_run_red_xo
-        trench_run_blue_yo=field.max_y-self.trench_height
+    #     trench_run_blue_xo=trench_run_red_xo
+    #     trench_run_blue_yo=field.max_y-self.trench_height
       
-        x=trench_run_blue_xo
-        y=trench_run_blue_yo
+    #     x=trench_run_blue_xo
+    #     y=trench_run_blue_yo
 
-        pygame.draw.rect(self.screen, BLUE, (trench_run_blue_xo,trench_run_blue_yo,width,height), thickness)
-        pygame.draw.rect(self.screen, RED, (trench_run_red_xo,trench_run_red_yo,width,height), thickness)
+    #     pygame.draw.rect(self.screen, BLUE, (trench_run_blue_xo,trench_run_blue_yo,width,height), thickness)
+    #     pygame.draw.rect(self.screen, RED, (trench_run_red_xo,trench_run_red_yo,width,height), thickness)
 
         
     def redraw_screen(self):     
@@ -495,14 +499,28 @@ class Game:
             # Frame Rate
             self.clock.tick(60)
 
+
+#            pygame.display.set_caption(f'FPS: {round(self.clock.get_fps(), 2)}')
             #if self.robot1.is_collided_with(self.robot2):
             #    print "COLLISION"
 
         pygame.quit()
 
-if __name__ == '__main__':
 
-    the_game=Game()
-    the_game.run();
+#######################################################
+#
+#
+# main
+#  
+#
+#######################################################
+if __name__ == '__main__':
+    try:
+        g = Game()
+        g.run()
+    except:
+        traceback.print_exc()
+        pygame.quit()
+
     
 

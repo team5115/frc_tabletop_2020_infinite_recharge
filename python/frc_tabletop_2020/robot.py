@@ -29,13 +29,13 @@ class Robot(pygame.sprite.Sprite):
 
 
             if is_mecanum:
-                for j in range(height/3):
+                for j in range(height//3):
                     for i in range(width):
                         if ((i%4==0) and (j%4==0)):
                             self.image.set_at([i,j],WHITE)
                         
             else:
-                for j in range(height/3):
+                for j in range(height//3):
                     for i in range(width):
                         self.image.set_at([i,j],YELLOW)
 
