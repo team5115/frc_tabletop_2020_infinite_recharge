@@ -30,6 +30,16 @@ mid_x=field_width/2.0+min_x
 mid_y=field_height/2.0+min_y
 
 
+
+initiation_line_blue_x=min_x+10*ft_;
+initiation_line_red_x=max_x-10*ft_;
+       
+
+
+
+
+
+
 # #####################################################################
 # class Loading_bay(sprite_rect.Sprite_rect):
 

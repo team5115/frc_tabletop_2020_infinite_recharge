@@ -78,22 +78,6 @@ class Game:
         # Set the title of the window
         pygame.display.set_caption('Infinite Recharge')
 
-
-     
-
-        # min_x=left_margin
-        # min_y=top_margin
-
-        
-        # field.max_x=self.field_width+min_x
-        # field.max_y=self.field_height+min_y
-
-        # field.mid_x=self.field_width/2.0+min_x
-        # field.mid_y=self.field_height/2.0+min_y
-
-
-        self.initiation_line_blue_x=field.min_x+10*ft_;
-        self.initiation_line_red_x=field.max_x-10*ft_;
         
         wall_thickness=1*in_
         
@@ -264,12 +248,12 @@ class Game:
         # field.mid_x=field.max_x/2.0
         # field.mid_y=field.max_y/2.0
         
-        blue_x=self.initiation_line_blue_x
+        blue_x=field.initiation_line_blue_x
         blue_y1=field.mid_y-dy/3
         blue_y2=field.mid_y
         blue_y3=field.mid_y+dy/3
 
-        red_x=self.initiation_line_red_x
+        red_x=field.initiation_line_red_x
         red_y1=blue_y1
         red_y2=blue_y2
         red_y3=blue_y3
@@ -279,12 +263,12 @@ class Game:
       
 
         # Create the robot object
-        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=keymaps.key_map_1, is_mecanum=True,team_name=5115,width=4*ft_,length=45*in_)
-        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=keymaps.key_map_2, is_mecanum=False,width=5*ft_,team_name=493)
+        self.robot1 = Robot(blue_x, blue_y1,BLUE1,angle=270,keymap=keymaps.key_map_1, is_mecanum=True,team_name=5115,width=36*in_,length=45*in_)
+        self.robot2 = Robot(blue_x, blue_y2,BLUE2,angle=270,keymap=keymaps.key_map_2, is_mecanum=False,width=3*ft_,team_name=493)
         self.robot3 = Robot(blue_x, blue_y3,BLUE3,angle=270,keymap=keymaps.key_map_3, is_mecanum=False,team_name=503)
 
 
-        self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=keymaps.key_map_4,is_mecanum=True,team_name=3361,width=5*ft_)
+        self.robot4 = Robot(red_x, red_y1,RED1,angle=90,keymap=keymaps.key_map_4,is_mecanum=True,team_name=3361,width=3*ft_)
         self.robot5 = Robot(red_x, red_y2,RED2,angle=90,keymap=keymaps.key_map_5,is_mecanum=False,team_name=3258)
         self.robot6 = Robot(red_x, red_y3,RED3,angle=90,keymap=keymaps.key_map_6,is_mecanum=False,team_name=2106)
 
@@ -323,28 +307,7 @@ class Game:
         self.all_sprites_list.add(truss_2)
         self.all_sprites_list.add(truss_3)
         self.all_sprites_list.add(truss_4)
-
-        
-        # self.all_sprites_list.add(blue_hab_platform_level_0)
-        # self.all_sprites_list.add(blue_hab_platform_level_1)
-        # self.all_sprites_list.add(blue_hab_platform_level_2a)
-        # self.all_sprites_list.add(blue_hab_platform_level_2b)
-        # self.all_sprites_list.add(blue_hab_platform_level_3)
-        # self.all_sprites_list.add(blue_depot_a)
-        # self.all_sprites_list.add(blue_depot_b)
-        # self.all_sprites_list.add(blue_loading_station_a)
-        # self.all_sprites_list.add(blue_loading_station_b)
-
-
-        # self.all_sprites_list.add(red_hab_platform_level_0)
-        # self.all_sprites_list.add(red_hab_platform_level_1)
-        # self.all_sprites_list.add(red_hab_platform_level_2a)
-        # self.all_sprites_list.add(red_hab_platform_level_2b)
-        # self.all_sprites_list.add(red_hab_platform_level_3)
-        # self.all_sprites_list.add(red_depot_a)
-        # self.all_sprites_list.add(red_depot_b)
-        # self.all_sprites_list.add(red_loading_station_a)
-        # self.all_sprites_list.add(red_loading_station_b)
+ 
 
         self.all_sprites_list.add(self.robot1)
         self.all_sprites_list.add(self.robot2)
@@ -352,7 +315,6 @@ class Game:
         self.all_sprites_list.add(self.robot4)
         self.all_sprites_list.add(self.robot5)
         self.all_sprites_list.add(self.robot6)
-
 
         
         self.solid_sprites_list = pygame.sprite.Group()
@@ -362,30 +324,10 @@ class Game:
         self.solid_sprites_list.add(wall_3)
         self.solid_sprites_list.add(wall_4)
 
-#        self.solid_sprites_list.add(cargo_ship_1)
-        # self.solid_sprites_list.add(rocket_1)
-        # self.solid_sprites_list.add(rocket_2)
-        # self.solid_sprites_list.add(rocket_3)
-        # self.solid_sprites_list.add(rocket_4)
-
         self.solid_sprites_list.add(truss_1)
         self.solid_sprites_list.add(truss_2)
         self.solid_sprites_list.add(truss_3)
         self.solid_sprites_list.add(truss_4)
-#        self.solid_sprites_list.add(blue_hab_platform_level_1)
-        # self.solid_sprites_list.add(blue_hab_platform_level_2a)
-        # self.solid_sprites_list.add(blue_hab_platform_level_2b)
-        # self.solid_sprites_list.add(blue_hab_platform_level_3)
-        # self.solid_sprites_list.add(blue_depot_a)
-        # self.solid_sprites_list.add(blue_depot_b)
-
- #       self.solid_sprites_list.add(red_hab_platform_level_1)
-        # self.solid_sprites_list.add(red_hab_platform_level_2a)
-        # self.solid_sprites_list.add(red_hab_platform_level_2b)
-        # self.solid_sprites_list.add(red_hab_platform_level_3)
-        # self.solid_sprites_list.add(red_depot_a)
-        # self.solid_sprites_list.add(red_depot_b)
-
 
         self.solid_sprites_list.add(self.robot1)
         self.solid_sprites_list.add(self.robot2)
@@ -460,8 +402,8 @@ class Game:
 
      
 
-        self.draw_vertical_line(x=self.initiation_line_blue_x,color=BLUE)
-        self.draw_vertical_line(x=self.initiation_line_red_x,color=RED)
+        self.draw_vertical_line(x=field.initiation_line_blue_x,color=BLUE)
+        self.draw_vertical_line(x=field.initiation_line_red_x,color=RED)
 
         self.draw_trench_runs()
         
