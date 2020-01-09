@@ -202,15 +202,16 @@ class Game:
 
         loading_bay_offset=5*ft_
         
-        loading_bay_red_xo=field.max_x+loading_bay.WIDTH/2
+        loading_bay_red_xo=field.max_x
         loading_bay_red_yo=field.min_y+loading_bay_offset
         loading_bay_origin_red=Vector2(loading_bay_red_xo,loading_bay_red_yo)
-        loading_bay_red=loading_bay.Loading_bay(loading_bay_origin_red,RED,True)
+        self.loading_bay_red=loading_bay.Loading_bay(loading_bay_origin_red,RED,True)
 
-        loading_bay_blue_xo=field.min_x-loading_bay.WIDTH/2
+        loading_bay_blue_xo=field.min_x-loading_bay.WIDTH
         loading_bay_blue_yo=field.max_y-loading_bay_offset-loading_bay.HEIGHT       
         loading_bay_origin_blue=Vector2(loading_bay_blue_xo,loading_bay_blue_yo)
-        loading_bay_blue=loading_bay.Loading_bay(loading_bay_origin_blue,BLUE)
+        self.loading_bay_blue=loading_bay.Loading_bay(loading_bay_origin_blue,BLUE)
+
 
         ############################################################
         #
@@ -221,17 +222,17 @@ class Game:
         #############################################################
 
         power_port_offset=7*ft_
-        power_port_red_xo=field.max_x
-        power_port_red_yo=field.max_y-power_port_offset        
+
+        
+        power_port_red_xo=field.min_x-power_port.WIDTH
+        power_port_red_yo=field.min_y+power_port_offset-power_port.HEIGHT
         power_port_origin_red=Vector2(power_port_red_xo,power_port_red_yo)
-
-        power_port_blue_xo=field.min_x-power_port.WIDTH
-        power_port_blue_yo=field.min_y-power_port_offset
-        power_port_origin_blue=Vector2(power_port_blue_xo,power_port_blue_yo)
-
         power_port_red=power_port.Power_port(power_port_origin_red,RED)
-        power_port_blue=power_port.Power_port(power_port_origin_blue,BLUE)
 
+        power_port_blue_xo=field.max_x
+        power_port_blue_yo=field.max_y-power_port_offset        
+        power_port_origin_blue=Vector2(power_port_blue_xo,power_port_blue_yo)
+        power_port_blue=power_port.Power_port(power_port_origin_blue,BLUE)
 
         
         ############################################
@@ -294,8 +295,8 @@ class Game:
         self.all_sprites_list.add(control_panel_blue)
         self.all_sprites_list.add(control_panel_red)
 
-        self.all_sprites_list.add(loading_bay_blue)
-        self.all_sprites_list.add(loading_bay_red)
+        self.all_sprites_list.add(self.loading_bay_blue)
+        self.all_sprites_list.add(self.loading_bay_red)
 
         self.all_sprites_list.add(power_port_blue)
         self.all_sprites_list.add(power_port_red)
@@ -406,7 +407,8 @@ class Game:
         field.draw_vertical_line(self.screen,field.initiation_line_red_x,RED)
 
         field.draw_trench_runs(self.screen)
-        
+        self.loading_bay_blue.draw_triangle(self.screen)
+        self.loading_bay_red.draw_triangle(self.screen)        
        
         
     def run(self):

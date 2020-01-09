@@ -39,12 +39,13 @@ class Sprite_rect(pygame.sprite.Sprite):
 
 
         
-        self.image_original=self.image
-        self.rect_original=self.image_original.get_rect()
+        #self.image_original=self.image
+        #self.rect_original=self.image_original.get_rect()
         
         # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()
-        self.rect.centerx = x
+        #self.rect.centerx = x
+        self.rect.x = x
         self.rect.y = y
 
 
