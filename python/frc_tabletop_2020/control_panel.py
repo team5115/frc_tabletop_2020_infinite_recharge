@@ -5,6 +5,8 @@ from units import *
 
 from pygame.math import Vector2
 
+height=4*ft_+8*in_
+width=2*ft_+6*in_
 
 
  

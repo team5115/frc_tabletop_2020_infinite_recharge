@@ -31,8 +31,8 @@ from shield_generator import Shield_generator
 from wall import Wall
 from truss import Truss
 from trench_run import Trench_run
-from control_panel import Control_panel
 
+import control_panel
 import loading_bay
 import power_port
 import field
@@ -162,8 +162,6 @@ class Game:
         #
         #
         #####################################################################
-        self.trench_height=4*ft_+7.5*in_
-        self.trench_width=18*ft_
 
         # trench_run_red_xo=field.mid_x
         # trench_run_red_yo=field.min_y
@@ -181,16 +179,16 @@ class Game:
         #
         #
         #############################################################
-        self.control_panel_width=2*ft_+6*in_
+      
         
-        control_panel_red_xo=field.mid_x+self.trench_width/2.0-self.control_panel_width*2
+        control_panel_red_xo=field.mid_x+field.trench_width/2.0-control_panel.width*2
         control_panel_red_yo=field.min_y
 
-        control_panel_blue_xo=field.mid_x-self.trench_width/2.0+self.control_panel_width*2
-        control_panel_blue_yo=field.max_y-self.trench_height
+        control_panel_blue_xo=field.mid_x-field.trench_width/2.0+control_panel.width*2
+        control_panel_blue_yo=field.max_y-field.trench_height
 
-        control_panel_red=Control_panel(control_panel_red_xo,control_panel_red_yo,BLUE)
-        control_panel_blue=Control_panel(control_panel_blue_xo,control_panel_blue_yo,RED)
+        control_panel_red=control_panel.Control_panel(control_panel_red_xo,control_panel_red_yo,BLUE)
+        control_panel_blue=control_panel.Control_panel(control_panel_blue_xo,control_panel_blue_yo,RED)
 
      
 
@@ -397,15 +395,17 @@ class Game:
         pygame.draw.polygon(self.screen, GREY, ((field.min_x,field.min_y), (field.max_x, field.min_y), (field.max_x,field.max_y), (field.min_x,field.max_y), (field.min_x, field.min_y)))
         
 
-        self.draw_horizontal_line(y=field.mid_y,color=YELLOW)
+        field.draw_horizontal_line(self.screen,y=field.mid_y,color=YELLOW)
 
 
      
 
-        self.draw_vertical_line(x=field.initiation_line_blue_x,color=BLUE)
-        self.draw_vertical_line(x=field.initiation_line_red_x,color=RED)
+        #self.draw_vertical_line(x=field.initiation_line_blue_x,color=BLUE)
+        #self.draw_vertical_line(x=field.initiation_line_red_x,color=RED)
+        field.draw_vertical_line(self.screen,field.initiation_line_blue_x,BLUE)
+        field.draw_vertical_line(self.screen,field.initiation_line_red_x,RED)
 
-        self.draw_trench_runs()
+        field.draw_trench_runs(self.screen)
         
        
         
