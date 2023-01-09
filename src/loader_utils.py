@@ -1,6 +1,6 @@
 import os, pygame
 from pygame.locals import *
-from pygame.compat import geterror
+#from pygame.compat import geterror
 
 if not pygame.font: print ('Warning, fonts disabled')
 if not pygame.mixer: print ('Warning, sound disabled')
@@ -15,7 +15,7 @@ def load_image(name, colorkey=None):
         image = pygame.image.load(fullname)
     except pygame.error:
         print(('Cannot load image:', fullname))
-        raise SystemExit(str(geterror()))
+        raise SystemExit(str(pygame.geterror()))
     image = image.convert()
     if colorkey is not None:
         if colorkey is -1:
@@ -33,5 +33,5 @@ def load_sound(name):
         sound = pygame.mixer.Sound(fullname)
     except pygame.error:
         print(('Cannot load sound: %s' % fullname))
-        raise SystemExit(str(geterror()))
+        raise SystemExit(str(pygame.geterror()))
     return sound
